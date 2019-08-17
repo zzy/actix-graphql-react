@@ -1,44 +1,49 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# typescript-expo-apollo-firebase-tabs
 
-## Available Scripts
+Clean boilerplate for TypeScript + Expo (React Native) + React Apollo (GraphQL) + Firebase(react-native-firebase) + Tabs(react-navigation-material-bottom-tabs).
 
-In the project directory, you can run:
+## What's this?
 
-### `npm start`
+This is example base code to use TypeScript, React Native, GraphQL and Firebase.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Use Expo to ease building the environment.
+- Use React Apollo to use GraphQL.
+- Use TypeScript instead of JavaScript for static type checking.
+- Use React Native Firebase connect to Firebase services.
+- Use React Navigation Material Bottom Tabs implement bottom tabs.
+- Use existing REST endpoints with GraphQL(apollo-link-rest).
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## Features
 
-### `npm test`
+- minimal code without extra configs.
+- no-any/noImplicitAny configs for TypeScript.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## How to run?
 
-### `npm run build`
+``` Bash
+ $ git clone https://github.com/zzy/~typescript-expo-apollo-firebase-tabs.git
+ $ cd typescript-expo-apollo-firebase-tabs
+```
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### yarn
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+``` Bash
+ $ yarn install # yarn upgrade; yarn install
+ $ yarn start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### npm
 
-### `npm run eject`
+``` Bash
+ $ npm install # npm up; npm install
+ $ npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Demo
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![Demo Image](./assets/demo-image.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## References
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [Using TypeScript - Expo Documentation](https://docs.expo.io/versions/latest/guides/typescript)
+- [Thanks for Daishi Kato's project: typescript-expo-apollo-boilerplate](https://github.com/dai-shi/typescript-expo-apollo-boilerplate)
