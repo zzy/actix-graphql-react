@@ -5,26 +5,3 @@
 /target/
 # Cargo.lock
 **/*.rs.bk
-
-# dependencies
-/node_modules
-/.expo
-/.pnp
-.pnp.js
-
-# testing
-/coverage
-
-# production
-/build
-
-# misc
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-npm-debug.log*
-npm-error.log*
-yarn-debug.log*
-yarn-error.log*
