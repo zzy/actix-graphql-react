@@ -215,7 +215,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "actix_web_juniper_react_apollo"
+name = "actix-web-juniper-react-apollo"
 version = "0.0.1"
 dependencies = [
  "actix-web 1.0.5 (registry+https://github.com/rust-lang/crates.io-index)",
