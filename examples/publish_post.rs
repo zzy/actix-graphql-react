@@ -2,7 +2,7 @@ extern crate actix_web_juniper_react_apollo;
 extern crate diesel;
 
 use self::diesel::prelude::*;
-use self::ddd::*;
+use self::actix_web_juniper_react_apollo::*;
 use self::models::Post;
 use std::env::args;
 
