@@ -1,7 +1,7 @@
 extern crate actix_web_juniper_react_apollo;
 extern crate diesel;
 
-use self::diesel_demo::*;
+use self::actix_web_juniper_react_apollo::*;
 use std::io::{stdin, Read};
 
 fn main() {

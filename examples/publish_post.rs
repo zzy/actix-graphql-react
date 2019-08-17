@@ -2,12 +2,12 @@ extern crate actix_web_juniper_react_apollo;
 extern crate diesel;
 
 use self::diesel::prelude::*;
-use self::diesel_demo::*;
+use self::actix_web_juniper_react_apollo::*;
 use self::models::Post;
 use std::env::args;
 
 fn main() {
-    use diesel_demo::schema::posts::dsl::{posts, published};
+    use actix_web_juniper_react_apollo::schema::posts::dsl::{posts, published};
 
     let id = args().nth(1).expect("publish_post requires a post id")
         .parse::<i32>().expect("Invalid ID");

@@ -2,11 +2,11 @@ extern crate actix_web_juniper_react_apollo;
 extern crate diesel;
 
 use self::diesel::prelude::*;
-use self::diesel_demo::*;
+use self::actix_web_juniper_react_apollo::*;
 use std::env::args;
 
 fn main() {
-    use diesel_demo::schema::posts::dsl::*;
+    use actix_web_juniper_react_apollo::schema::posts::dsl::*;
 
     let target = args().nth(1).expect("Expected a target to match against");
     let pattern = format!("%{}%", target);

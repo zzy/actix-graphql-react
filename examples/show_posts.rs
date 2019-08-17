@@ -1,12 +1,12 @@
 extern crate actix_web_juniper_react_apollo;
 extern crate diesel;
 
-use self::diesel_demo::*;
+use self::actix_web_juniper_react_apollo::*;
 use self::models::*;
 use self::diesel::prelude::*;
 
 fn main() {
-    use diesel_demo::schema::posts::dsl::*;
+    use actix_web_juniper_react_apollo::schema::posts::dsl::*;
 
     let connection = establish_connection();
     let results = posts.filter(published.eq(true))
