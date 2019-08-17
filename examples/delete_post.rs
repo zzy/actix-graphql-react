@@ -1,4 +1,4 @@
-extern crate diesel_demo;
+extern crate actix_web_juniper_react_apollo;
 extern crate diesel;
 
 use self::diesel::prelude::*;
