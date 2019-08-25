@@ -1,0 +1,48 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  users: [User!]! @juniper(ownership: "owned")
+
+  userConnections(
+    after: Cursor,
+    first: Int = 20,
+    userId: ID!,
+  ): UserConnection @juniper(ownership: "owned")
+}
+
+type Mutation {
+  noop: Boolean!
+}
+
+type User {
+  id: ID! @juniper(ownership: "owned")
+  name: String!
+  country: Country!
+}
+
+type Country {
+  id: ID! @juniper(ownership: "owned")
+  name: String!
+}
+
+scalar Cursor
+
+type PageInfo {
+  startCursor: Cursor
+  endCursor: Cursor
+  hasNextPage: Boolean!
+}
+
+type UserConnection {
+  edges: [UserEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type UserEdge {
+  cursor: Cursor!
+  node: User!
+}
