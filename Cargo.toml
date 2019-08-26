@@ -14,3 +14,4 @@ juniper = "^0.13.1"
 diesel = { version = "^1.4.2", features = ["postgres", "r2d2"] }
 dotenv = "^0.14.1"
 uuid = { version = "^0.7.4", features = ["serde", "v4"] }
+jsonwebtoken = "^6.0.1"
