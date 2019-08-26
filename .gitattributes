@@ -1,5 +1,3 @@
-* linguist-language=Rust
-
 * text=auto eol=lf
 
 *.{cmd,[cC][mM][dD]} text eol=crlf
