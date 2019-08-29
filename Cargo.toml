@@ -5,7 +5,7 @@ authors = ["zzy <9809920@qq.com>"]
 edition = "2018"
 
 [dependencies]
-actix-web = "^1.0.5"
+actix-web = "^1.0.7"
 env_logger = "^0.6.2"
 futures = "^0.1.28"
 serde = { version = "^1.0.99", features = ["derive"] }
