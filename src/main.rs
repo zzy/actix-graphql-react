@@ -14,7 +14,7 @@ mod schema;
 use crate::schema::{create_schema, Schema};
 
 fn graphiql() -> HttpResponse {
-    let html = graphiql_source("http://127.0.0.1:8080/graphql");
+    let html = graphiql_source("http://127.0.0.1:5000/graphql");
     HttpResponse::Ok()
         .content_type("text/html; charset=utf-8")
         .body(html)
@@ -39,11 +39,9 @@ fn graphql(
 fn main() -> io::Result<()> {
     std::env::set_var("RUST_LOG", "actix_web=info");
     env_logger::init();
-
-    // Create Juniper schema
+    
     let schema = std::sync::Arc::new(create_schema());
 
-    // Start http server
     HttpServer::new(move || {
         App::new()
             .data(schema.clone())
@@ -51,6 +49,6 @@ fn main() -> io::Result<()> {
             .service(web::resource("/graphql").route(web::post().to_async(graphql)))
             .service(web::resource("/graphiql").route(web::get().to(graphiql)))
     })
-    .bind("127.0.0.1:8080")?
+    .bind("127.0.0.1:5000")?
     .run()
 }
