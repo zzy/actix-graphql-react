@@ -27,14 +27,14 @@ $ echo DATABASE_URL=postgres://username:password@localhost/actix-web-juniper-rea
  $ cd actix-web-juniper-react-apollo/frontend/
 ```
 
-### yarn
+#### yarn
 
 ``` Bash
  $ yarn install # yarn upgrade; yarn install
  $ yarn start
 ```
 
-### npm
+#### npm
 
 ``` Bash
  $ npm install # npm up; npm install
