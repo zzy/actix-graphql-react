@@ -1,8 +1,13 @@
 -- Your SQL goes here
 
+CREATE TABLE users (
+  id VARCHAR NOT NULL PRIMARY KEY,
+  name VARCHAR NOT NULL
+);
+
 CREATE TABLE posts (
   id SERIAL PRIMARY KEY,
   title VARCHAR NOT NULL,
   body TEXT NOT NULL,
   published BOOLEAN NOT NULL DEFAULT 'f'
-)
+);
