@@ -9,9 +9,9 @@ use futures::future::Future;
 use juniper::http::graphiql::graphiql_source;
 use juniper::http::GraphQLRequest;
 
-mod schema;
+mod graphql;
 
-use crate::schema::{create_schema, Schema};
+use crate::graphql::{create_schema, Schema};
 
 fn graphiql() -> HttpResponse {
     let html = graphiql_source("http://127.0.0.1:5000/graphql");
