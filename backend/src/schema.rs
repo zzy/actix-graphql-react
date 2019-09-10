@@ -9,12 +9,16 @@ table! {
 
 table! {
     users (id) {
-        id -> Varchar,
-        name -> Varchar,
+        id -> Int4,
+        email -> Varchar,
+        first_name -> Varchar,
+        last_name -> Varchar,
+        password -> Varchar,
+        bio -> Nullable<Text>,
+        avatar -> Nullable<Varchar>,
+        created_at -> Timestamptz,
+        updated_at -> Timestamptz,
     }
 }
 
-allow_tables_to_appear_in_same_query!(
-    posts,
-    users,
-);
+allow_tables_to_appear_in_same_query!(posts, users,);
