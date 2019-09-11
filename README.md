@@ -2,7 +2,7 @@
 
 Clean boilerplate for GraphQL app built with Rust & TypeScript.
 
-- **Backend**: actix-web + juniper(GraphQL server) + diesel(PostgreSQL);
+- **Backend**: actix-web + juniper(GraphQL server) + diesel(ORM);
 - **Frontend**: react + apollo(GraphQL client).
 
 ## How to run?
