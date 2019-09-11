@@ -1,4 +1,11 @@
 table! {
+    cats (id) {
+        id -> Int4,
+        name -> Varchar,
+    }
+}
+
+table! {
     posts (id) {
         id -> Int4,
         title -> Varchar,
@@ -21,4 +28,4 @@ table! {
     }
 }
 
-allow_tables_to_appear_in_same_query!(posts, users,);
+allow_tables_to_appear_in_same_query!(cats, posts, users,);

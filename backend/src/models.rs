@@ -1,6 +1,17 @@
-extern crate chrono;
-
+use super::schema::*;
 use chrono::prelude::*;
+
+#[derive(Queryable)]
+pub struct Cat {
+    pub id: i32,
+    pub name: String,
+}
+
+#[derive(Insertable)]
+#[table_name = "cats"]
+pub struct NewCat {
+    pub name: String,
+}
 
 #[derive(Queryable, GraphQLObject, Debug)]
 pub struct User {

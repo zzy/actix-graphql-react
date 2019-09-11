@@ -1,64 +1,32 @@
-// #![deny(warnings)]
+use actix_cors::Cors;
+use actix_web::{web, App, HttpServer};
 
-use std::io;
-use std::sync::Arc;
+use actix_graphql_react_apollo as agra;
 
-extern crate diesel;
-extern crate juniper;
-extern crate pretty_env_logger;
-
-use actix_web::{middleware, web, App, Error, HttpResponse, HttpServer};
-use futures::future::Future;
-use juniper::http::graphiql::graphiql_source;
-use juniper::http::GraphQLRequest;
-
-extern crate actix_web_juniper_react_apollo;
-use actix_web_juniper_react_apollo::gql::{Context, Mutation, Query};
-// use actix_web_juniper_react_apollo::jwt::verify_jwt;
-
-// use warp::{fiactix_web_juniper_react_apollolters::BoxedFilter, Filter};
-
-type Schema = juniper::RootNode<'static, Query, Mutation>;
-
-fn main() -> io::Result<()> {
+fn main() {
     pretty_env_logger::init();
-    std::env::set_var("RUST_LOG", "actix_web=info");
 
-    // Create Juniper schema
-    // let schema = std::sync::Arc::new(create_schema());
-    let schema = Schema::new(Query, Mutation);
+    #[cfg(debug_assertions)]
+    dotenv::dotenv().ok();
+
+    let db_pool = agra::db::create_db_pool();
+    let gql_server_port: u16 = std::env::var("GRAPHQL_SERVER_PORT")
+        .ok()
+        .and_then(|p| p.parse().ok())
+        .unwrap_or(3000);
+
+    let addr = std::net::SocketAddr::from(([0, 0, 0, 0], gql_server_port));
 
     // Start http server
     HttpServer::new(move || {
         App::new()
-            .data(schema.clone())
-            .wrap(middleware::Logger::default())
-            .service(web::resource("/graphql").route(web::post().to_async(graphql)))
-            .service(web::resource("/graphiql").route(web::get().to(graphiql)))
+            .data(db_pool.clone())
+            .wrap(Cors::new())
+            .configure(agra::gql::register)
+            .default_service(web::to(|| "404"))
     })
-    .bind("127.0.0.1:5000")?
+    .bind(addr)
+    .unwrap()
     .run()
-}
-
-fn graphql(
-    st: web::Data<Arc<Schema>>,
-    data: web::Json<GraphQLRequest>,
-) -> impl Future<Item = HttpResponse, Error = Error> {
-    web::block(move || {
-        let res = data.execute(&st, &());
-        Ok::<_, serde_json::error::Error>(serde_json::to_string(&res)?)
-    })
-    .map_err(Error::from)
-    .and_then(|user| {
-        Ok(HttpResponse::Ok()
-            .content_type("application/json")
-            .body(user))
-    })
-}
-
-fn graphiql() -> HttpResponse {
-    let html = graphiql_source("http://127.0.0.1:5000/graphql");
-    HttpResponse::Ok()
-        .content_type("text/html; charset=utf-8")
-        .body(html)
+    .unwrap();
 }

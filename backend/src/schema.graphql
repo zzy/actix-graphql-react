@@ -1,0 +1,21 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+   cats(
+        skip: Int = 0,
+        limit: Int = 20,
+    ): [Cat!]! @juniper(ownership: "owned")
+
+}
+
+type Mutation {
+    addCat(name: String!): Cat! @juniper(ownership: "owned")
+}
+
+type Cat {
+    id: ID! @juniper(ownership: "owned")
+    name: String!
+}
