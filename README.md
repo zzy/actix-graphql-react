@@ -42,8 +42,8 @@
 ``` Shell
 $ echo DATABASE_URL=postgres://username:password@localhost/actix-graphql-react-apollo > .env
 $ echo GRAPHQL_SERVER_PORT=5000 >> .env
-$ echo diesel setup
-$ echo cargo run
+$ diesel setup
+$ cargo run
 ```
 
 GraphiQL : connect to http://localhost:5000/ with browser.
