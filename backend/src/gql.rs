@@ -3,86 +3,127 @@ use std::sync::Arc;
 use actix_web::{web, Error, HttpResponse};
 use futures::future::Future;
 
+use bcrypt::{hash, verify};
+
 use juniper::http::playground::playground_source;
-use juniper::{http::GraphQLRequest, Executor, FieldResult};
+use juniper::{http::GraphQLRequest, FieldResult};
 
 use diesel::prelude::*;
 
 use crate::db::{DbCon, DbPool};
-use crate::models::*;
 use crate::gql_types::*;
+use crate::jwt::{encode_jwt, verify_jwt};
+use crate::models::*;
 
 pub struct Context {
     db_con: DbCon,
+    pub user_id: Option<i32>,
 }
 impl juniper::Context for Context {}
 
 pub struct Query;
+
+graphql_object!(Query:Context |&self|{
+    field getProfile(&_executor) -> FieldResult<UserResponse>{
+        use crate::schema::users::dsl::*;
+
+        let user_id = match _executor.context().user_id {
+            Some(user_id) => user_id,
+            None => return Ok(UserResponse{ok:false, error:Some("Login required".to_string()), user:None}),
+        };
+
+        match users.find(user_id).first(&_executor.context().db_con) {
+            Ok(user) => Ok(UserResponse{ok:true, error:None, user:Some(user)}),
+            _ => Ok(UserResponse{ok:false, error:Some( "Not existing user".to_string() ), user:None}),
+        }
+    }
+});
+
 pub struct Mutation;
 
-impl QueryFields for Query {
-    fn field_cats(
-        &self,
-        _executor: &Executor<'_, Context>,
-        _trail: &QueryTrail<'_, Cat, Walked>,
-        skip: i32,
-        limit: i32,
-    ) -> FieldResult<Vec<Cat>> {
-        use crate::schema::cats;
+graphql_object!(Mutation:Context |&self|{
+    field signIn(&_executor, email:String, password:String) -> FieldResult<TokenResponse>{
 
-        let result = cats::table
-            .offset(skip.into())
-            .limit(limit.into())
-            .load::<crate::models::Cat>(&_executor.context().db_con)
-            .expect("Error loading posts");
+        use crate::schema::users;
 
-        Ok(result
-            .iter()
-            .map(|cat| Cat {
-                id: cat.id,
-                name: cat.name.to_owned(),
-            })
-            .collect())
-    }
-}
+        let user = users::dsl::users.filter(users::dsl::email.eq(email)).load::<User>(&_executor.context().db_con)?;
 
-impl MutationFields for Mutation {
-    fn field_add_cat(
-        &self,
-        _executor: &Executor<'_, Context>,
-        _trail: &QueryTrail<'_, Cat, Walked>,
-        name: String,
-    ) -> FieldResult<Cat> {
-        use crate::schema::cats;
+        let valid = verify(password, &user[0].password)?;
 
-        let new_cat = crate::models::NewCat { name: name };
-
-        let cat: crate::models::Cat = diesel::insert_into(cats::table)
-            .values(&new_cat)
-            .get_result(&_executor.context().db_con)
-            .expect("Error saving new post");
-
-        Ok(Cat {
-            id: cat.id,
-            name: cat.name.to_owned(),
-        })
-    }
-}
-
-pub struct Cat {
-    id: i32,
-    name: String,
-}
-
-impl CatFields for Cat {
-    fn field_id(&self, _: &Executor<'_, Context>) -> FieldResult<juniper::ID> {
-        Ok(juniper::ID::new(self.id.to_string()))
+        if valid {
+            let token = match encode_jwt(user[0].id, 30){
+                Ok(t) => t,
+                _ => return Ok(TokenResponse{token:None}),
+            };
+            Ok(TokenResponse{token:Some(token)})
+        } else {
+            Ok(TokenResponse{token:None})
+        }
     }
 
-    fn field_name(&self, _: &Executor<'_, Context>) -> FieldResult<&String> {
-        Ok(&self.name)
+    field signUp(&_executor, email:String, first_name:String, last_name:String, password:String, bio:Option<String>, avatar:Option<String>) -> FieldResult<UserResponse> {
+        use crate::schema::users;
+
+        let hashed = hash(&password, 10)?;
+
+        let hashed_new_user = NewUser{
+            email:email,
+            first_name:first_name,
+            last_name:last_name,
+            password:hashed,
+            bio:bio,
+            avatar:avatar,
+        };
+
+        match diesel::insert_into(users::table)
+            .values(&hashed_new_user)
+            .get_result(&_executor.context().db_con){
+                Ok(user) => Ok(UserResponse{ok:true,error:None, user:Some(user)}),
+                _ => Ok(UserResponse{ok:false, error:None, user:None})
+            }
+
     }
-}
+
+    field changePassword(&_executor, password:String) -> FieldResult<UserResponse>{
+        use crate::schema::users;
+
+        let user_id = match _executor.context().user_id{
+            Some(user_id) => user_id,
+            None => return Ok(UserResponse{ok:false, error:Some("Login required".to_string()), user:None}),
+        };
+
+        let hashed_new_password = match hash(&password, 10){
+            Ok(pw)=>pw,
+            _ => return Ok(UserResponse{ok:false, error: Some("Error hashing password".to_string()), user:None})
+        };
+
+        match diesel::update(users::dsl::users.find(user_id)).set(users::dsl::password.eq(hashed_new_password)).get_result::<User>(&_executor.context().db_con){
+            Ok(user) => Ok(UserResponse{ok:true, error:None, user:Some(user)}),
+            _ => Ok(UserResponse{ok:false, error: Some("Error".to_string()), user:None})
+        }
+    }
+
+    field changeProfile(&_executor, bio:Option<String>, avatar:Option<String>) ->FieldResult<UserResponse>{
+        use crate::schema::users;
+
+        let user_id = match _executor.context().user_id {
+            Some(user_id) => user_id,
+            None => return Ok(UserResponse{ok:false, error:Some("Login required".to_string()), user:None}),
+        };
+
+        match diesel::update(users::dsl::users.find(user_id))
+            .set(&UpdateUser {
+                password:None,
+                bio:bio,
+                avatar:avatar,
+            }).get_result::<User>(&_executor.context().db_con){
+            Ok(user) => Ok(UserResponse{ok:true, error:None, user:Some(user)}),
+            _ => Ok(UserResponse{ok:false, error: Some("Error".to_string()), user:None})
+        }
+    }
+});
+
+type Schema = juniper::RootNode<'static, Query, Mutation>;
 
 fn graphiql() -> HttpResponse {
     let html = playground_source("");
@@ -98,6 +139,7 @@ fn graphql(
 ) -> impl Future<Item = HttpResponse, Error = Error> {
     let ctx = Context {
         db_con: db_pool.get().unwrap(),
+        user_id: Some(1),
     };
 
     web::block(move || {
