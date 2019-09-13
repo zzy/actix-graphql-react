@@ -40,9 +40,11 @@
 #### Put the `DATABASE_URL` & `port` in a `.env` file.
 
 ``` Shell
+$ cargo install diesel_cli --no-default-features --features postgres
 $ echo DATABASE_URL=postgres://username:password@localhost/actix-graphql-react-apollo > .env
 $ echo GRAPHQL_SERVER_PORT=5000 >> .env
 $ diesel setup
+$ diesel migration run // option
 $ cargo run
 ```
 
