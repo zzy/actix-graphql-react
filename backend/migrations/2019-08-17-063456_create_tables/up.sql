@@ -14,11 +14,11 @@ CREATE TABLE users (
 
 SELECT diesel_manage_updated_at('users');
 
-CREATE TABLE posts (
+CREATE TABLE sites (
   id SERIAL PRIMARY KEY,
   title VARCHAR NOT NULL,
   body TEXT NOT NULL,
   published BOOLEAN NOT NULL DEFAULT 'f'
 );
 
-SELECT diesel_manage_updated_at('posts');
+SELECT diesel_manage_updated_at('sites');

@@ -1,12 +1,5 @@
 table! {
-    cats (id) {
-        id -> Int4,
-        name -> Varchar,
-    }
-}
-
-table! {
-    posts (id) {
+    sites (id) {
         id -> Int4,
         title -> Varchar,
         body -> Text,
@@ -28,4 +21,7 @@ table! {
     }
 }
 
-allow_tables_to_appear_in_same_query!(cats, posts, users,);
+allow_tables_to_appear_in_same_query!(
+    sites,
+    users,
+);

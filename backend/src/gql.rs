@@ -5,13 +5,12 @@ use futures::future::Future;
 
 use juniper::http::playground::playground_source;
 use juniper::{http::GraphQLRequest, Executor, FieldResult};
-use juniper_from_schema::graphql_schema_from_file;
 
 use diesel::prelude::*;
 
 use crate::db::{DbCon, DbPool};
-
-graphql_schema_from_file!("src/schema.graphql");
+use crate::models::*;
+use crate::gql_types::*;
 
 pub struct Context {
     db_con: DbCon,

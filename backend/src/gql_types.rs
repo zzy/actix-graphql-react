@@ -1,5 +1,5 @@
-use super::models::User;
-use super::schema::users;
+use super::models::*;
+use super::schema::*;
 
 #[derive(Insertable, GraphQLInputObject)]
 #[table_name = "users"]

@@ -18,6 +18,7 @@ Clean boilerplate for GraphQL app built with Rust & TypeScript.
 
 ``` Shell
 $ echo DATABASE_URL=postgres://username:password@localhost/actix-web-juniper-react-apollo > .env
+$ echo GRAPHQL_SERVER_PORT=5000 >> .env
 ```
 
 ### Frontend

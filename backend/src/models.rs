@@ -1,17 +1,4 @@
-use super::schema::*;
 use chrono::prelude::*;
-
-#[derive(Queryable)]
-pub struct Cat {
-    pub id: i32,
-    pub name: String,
-}
-
-#[derive(Insertable)]
-#[table_name = "cats"]
-pub struct NewCat {
-    pub name: String,
-}
 
 #[derive(Queryable, GraphQLObject, Debug)]
 pub struct User {
@@ -24,4 +11,12 @@ pub struct User {
     pub avatar: Option<String>,
     pub created_at: NaiveDateTime,
     pub updated_at: NaiveDateTime,
+}
+
+#[derive(Queryable, GraphQLObject, Debug)]
+pub struct Site {
+    pub id: i32,
+    pub title: String,
+    pub boday: Option<String>,
+    pub published: bool,
 }

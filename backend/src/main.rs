@@ -5,8 +5,6 @@ use actix_graphql_react_apollo as agra;
 
 fn main() {
     pretty_env_logger::init();
-
-    #[cfg(debug_assertions)]
     dotenv::dotenv().ok();
 
     let db_pool = agra::db::create_db_pool();
