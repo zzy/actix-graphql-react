@@ -48,7 +48,7 @@ $ diesel migration run // option
 $ cargo run
 ```
 
-GraphiQL : connect to http://localhost:5000/ with browser.
+GraphiQL: connect to http://localhost:5000/ with browser.
 
 ### Frontend
 
