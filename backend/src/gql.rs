@@ -12,7 +12,7 @@ use diesel::prelude::*;
 
 use crate::db::{DbCon, DbPool};
 use crate::gql_types::*;
-use crate::jwt::{encode_jwt, verify_jwt};
+use crate::jwt::{ encode_jwt };
 use crate::models::*;
 
 pub struct Context {
