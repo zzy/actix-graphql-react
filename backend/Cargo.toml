@@ -5,17 +5,17 @@ authors = ["zzy <9809920@qq.com>"]
 edition = "2018"
 
 [dependencies]
-actix-web = "^1.0.9"
-actix-cors = "^0.1.0"
-pretty_env_logger = "^0.3.1"
-futures = "^0.3.1"
-serde = { version = "^1.0.104", features = ["derive"] }
-serde_json = "^1.0.44"
-juniper = "^0.14.1"
-diesel = { version = "^1.4.3", features = ["postgres", "r2d2", "chrono"] }
-r2d2 = "^0.8.7"
-chrono = "^0.4.10"
-dotenv = "^0.15.0"
-uuid = { version = "^0.8.1", features = ["serde", "v4"] }
-jsonwebtoken = "^6.0.1"
-bcrypt = "^0.6.1"
+actix-web = "2.0.0"
+actix-cors = "0.2.0"
+pretty_env_logger = "0.4.0"
+futures = "0.3.4"
+serde = { version = "1.0.104", features = ["derive"] }
+serde_json = "1.0.47"
+juniper = "0.14.2"
+diesel = { version = "1.4.3", features = ["postgres", "r2d2", "chrono"] }
+r2d2 = "0.8.8"
+chrono = "0.4.10"
+dotenv = "0.15.0"
+uuid = { version = "0.8.1", features = ["serde", "v4"] }
+jsonwebtoken = "7.0.1"
+bcrypt = "0.6.1"
