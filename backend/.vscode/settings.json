@@ -3,8 +3,5 @@
     "rust-client.enableMultiProjectSetup": true,
     "rust-client.updateOnStartup": true,
     "rust.all_features": true,
-    "rust.unstable_features": true,
-    "files.watcherExclude": {
-        "**/target/": true
-    }
+    "rust.unstable_features": true
 }
