@@ -4,12 +4,14 @@
 
 ## Features
 
-- DB migration with Diesel
-- Sign up
-- Sign in
-- Change password
-- Profile Update
-- JSON web token authentication
+- [x] DB migration with Diesel
+- [x] User query
+- [x] User register
+- [ ] Sign up
+- [ ] Sign in
+- [ ] Change password
+- [ ] Profile Update
+- [ ] JSON web token authentication
 
 ## Stacks
 
@@ -20,7 +22,7 @@
 - [juniper](https://crates.io/crates/juniper) - GraphQL server
 - [diesel](https://crates.io/crates/diesel) - ORM
 - [PostgreSQL](https://postgresql.org) - Database
-- [jsonwebtoken](https://crates.io/crates/jsonwebtoken) - JSON Web Tokens
+- [jsonwebtoken](https://crates.io/crates/jsonwebtoken) - JSON Web Token
 - [GraphQL Playground](https://github.com/prisma-labs/graphql-playground) - GraphQL UI
 
 ### Frontend
