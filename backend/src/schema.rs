@@ -8,6 +8,14 @@ table! {
 }
 
 table! {
+    todos (id) {
+        id -> Int4,
+        task -> Varchar,
+        done -> Bool,
+    }
+}
+
+table! {
     users (id) {
         id -> Int4,
         email -> Varchar,
@@ -21,4 +29,8 @@ table! {
     }
 }
 
-allow_tables_to_appear_in_same_query!(sites, users,);
+allow_tables_to_appear_in_same_query!(
+    sites,
+    todos,
+    users,
+);
