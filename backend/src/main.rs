@@ -1,12 +1,3 @@
-extern crate actix_rt;
-extern crate actix_web;
-extern crate diesel;
-// extern crate dotenv;
-extern crate actix_graphql_react_apollo;
-extern crate env_logger;
-extern crate juniper;
-extern crate r2d2;
-
 use dotenv::dotenv;
 use std::{env, io};
 
@@ -31,15 +22,18 @@ async fn main() -> io::Result<()> {
     // Start up the server, passing in (a) the connection pool
     // to make it available to all endpoints and (b) the configuration
     // function that adds the /graphql logic.
-    HttpServer::new(move || {
+    let server = HttpServer::new(move || {
         App::new()
             .data(pool.clone())
             .wrap(middleware::Logger::default())
             .configure(graphql_endpoints)
     })
     .bind(format!("0.0.0.0:{}", graphql_port))?
-    .run()
-    .await
+    .run();
+
+    eprintln!("Listening on 0.0.0.0:{}", graphql_port);
+
+    server.await
 }
 
 // TODO: more fine-grained logging setup
