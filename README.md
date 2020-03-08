@@ -15,18 +15,19 @@
 
 ### Backend
 
-- [Rust](https://www.rust-lang.org/zh-CN/)
-- [actix-web](https://github.com/actix/actix-web) - Web server
-- [juniper](https://github.com/graphql-rust/juniper) - GraphQL server
-- [diesel](https://github.com/diesel-rs/diesel) - ORM
-- DB: Postgres
-- JSON Web Token : Authentication
+- [Rust](https://www.rust-lang.org/zh-CN)
+- [actix-web](https://crates.io/crates/actix-web) - Web server
+- [juniper](https://crates.io/crates/juniper) - GraphQL server
+- [diesel](https://crates.io/crates/diesel) - ORM
+- [PostgreSQL](https://postgresql.org) - Database
+- [jsonwebtoken](https://crates.io/crates/jsonwebtoken) - JSON Web Tokens
+- [GraphQL Playground](https://github.com/prisma-labs/graphql-playground) - GraphQL UI
 
 ### Frontend
 
-- TypeScript
-- react - user interfaces
-- apollo-client - GraphQL client
+- [TypeScript](https://www.typescriptlang.org)
+- [react](https://zh-hans.reactjs.org) - User Interfaces
+- [apollo-client](https://www.apollographql.com/docs/react) - GraphQL client
 
 ## How to run?
 
@@ -48,7 +49,7 @@ $ diesel migration run // option
 $ cargo run
 ```
 
-GraphiQL: connect to http://localhost:5000/ with browser.
+GraphiQL: connect to http://localhost:5000/graphql with browser.
 
 ### Frontend
 
@@ -71,4 +72,4 @@ GraphiQL: connect to http://localhost:5000/ with browser.
  $ npm start
 ```
 
-Then go to http://localhost:3000/.
+Then go to http://localhost:3000/ .
