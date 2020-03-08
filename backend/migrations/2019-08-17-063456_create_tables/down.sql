@@ -1,5 +1,8 @@
 DROP TRIGGER set_updated_at ON users;
-DROP TABLE users;
+DROP TABLE IF EXISTS users;
 
 DROP TRIGGER set_updated_at ON sites;
-DROP TABLE sites;
+DROP TABLE IF EXISTS sites;
+
+DROP TRIGGER set_updated_at ON todos;
+DROP TABLE IF EXISTS todos;
