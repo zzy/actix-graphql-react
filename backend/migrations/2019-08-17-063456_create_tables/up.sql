@@ -20,7 +20,8 @@ CREATE TABLE projects (
   -- tags VARCHAR NOT NULL,
   website VARCHAR,
   -- body TEXT NOT NULL,
-	created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+	source_code VARCHAR,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 	updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   published BOOLEAN NOT NULL DEFAULT 'f',
   FOREIGN KEY (user_id) REFERENCES users(id)

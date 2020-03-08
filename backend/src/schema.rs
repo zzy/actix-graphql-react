@@ -1,17 +1,13 @@
 table! {
-    sites (id) {
+    projects (id) {
         id -> Int4,
-        title -> Varchar,
-        body -> Text,
+        user_id -> Int4,
+        subject -> Varchar,
+        website -> Nullable<Varchar>,
+        source_code -> Nullable<Varchar>,
+        created_at -> Timestamptz,
+        updated_at -> Timestamptz,
         published -> Bool,
-    }
-}
-
-table! {
-    todos (id) {
-        id -> Int4,
-        task -> Varchar,
-        done -> Bool,
     }
 }
 
@@ -19,18 +15,16 @@ table! {
     users (id) {
         id -> Int4,
         email -> Varchar,
-        first_name -> Varchar,
-        last_name -> Varchar,
+        username -> Varchar,
         password -> Varchar,
-        bio -> Nullable<Text>,
-        avatar -> Nullable<Varchar>,
         created_at -> Timestamptz,
         updated_at -> Timestamptz,
     }
 }
 
+joinable!(projects -> users (user_id));
+
 allow_tables_to_appear_in_same_query!(
-    sites,
-    todos,
+    projects,
     users,
 );
