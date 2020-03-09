@@ -6,12 +6,12 @@ use super::data::Todos;
 use super::models::{CreateTodoInput, Todo};
 
 // The root GraphQL query
-pub struct Query;
+pub struct QueryRoot;
 
 // The root Query struct relies on GraphQLContext to provide the connection pool
 // needed to execute actual Postgres queries.
 #[juniper::object(Context = GraphQLContext)]
-impl Query {
+impl QueryRoot {
     // This annotation isn't really necessary, as Juniper would convert the
     // all_todos function name into CamelCase. But I like to keep it explicit.
     #[graphql(name = "allTodos")]
@@ -49,10 +49,10 @@ impl Query {
 }
 
 // The root GraphQL mutation
-pub struct Mutation;
+pub struct MutationRoot;
 
 #[juniper::object(Context = GraphQLContext)]
-impl Mutation {
+impl MutationRoot {
     #[graphql(name = "createTodo")]
     pub fn create_todo(
         context: &GraphQLContext,

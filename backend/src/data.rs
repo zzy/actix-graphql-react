@@ -1,5 +1,5 @@
 use super::models::{CreateTodoInput, NewTodo, Todo};
-use super::schema::todos::dsl::*;
+// use super::schema::todos::dsl::*;
 use diesel::pg::PgConnection;
 use diesel::prelude::*;
 use juniper::{graphql_value, FieldError, FieldResult};
