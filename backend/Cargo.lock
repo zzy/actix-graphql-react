@@ -53,6 +53,7 @@ dependencies = [
  "actix-cors",
  "actix-rt",
  "actix-web",
+ "chrono",
  "diesel",
  "dotenv",
  "env_logger",
