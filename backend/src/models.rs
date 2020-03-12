@@ -32,12 +32,12 @@ impl User {
     }
 
     #[graphql(name = "created_at")]
-    fn created_at(&self) -> DateTime<Utc> {
+    pub fn created_at(&self) -> DateTime<Utc> {
         DateTime::<Utc>::from_utc(self.created_at, Utc)
     }
 
     #[graphql(name = "updated_at")]
-    fn updated_at(&self) -> DateTime<Utc> {
+    pub fn updated_at(&self) -> DateTime<Utc> {
         DateTime::<Utc>::from_utc(self.updated_at, Utc)
     }
 }
@@ -73,7 +73,7 @@ pub struct Project {
 }
 
 // applying #[derive(juniper::GraphQLObject)] to the project struct above
-#[juniper::object]
+#[juniper::object(description = "A project of a user")]
 impl Project {
     #[graphql(name = "id")]
     pub fn id(&self) -> i32 {
@@ -101,17 +101,17 @@ impl Project {
     }
 
     #[graphql(name = "created_at")]
-    fn created_at(&self) -> DateTime<Utc> {
+    pub fn created_at(&self) -> DateTime<Utc> {
         DateTime::<Utc>::from_utc(self.created_at, Utc)
     }
 
     #[graphql(name = "updated_at")]
-    fn updated_at(&self) -> DateTime<Utc> {
+    pub fn updated_at(&self) -> DateTime<Utc> {
         DateTime::<Utc>::from_utc(self.updated_at, Utc)
     }
 
     #[graphql(name = "published")]
-    fn published(&self) -> bool {
+    pub fn published(&self) -> bool {
         self.published
     }
 }
