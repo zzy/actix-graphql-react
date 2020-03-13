@@ -3,8 +3,8 @@ use std::{env, io};
 
 use actix_web::{middleware, App, HttpServer};
 
-use actix_graphql_react_apollo::db::get_pool;
-use actix_graphql_react_apollo::endpoints::graphql_endpoints;
+use actix_graphql_react::db::pg_pool;
+use actix_graphql_react::endpoints::graphql_endpoints;
 
 #[actix_rt::main]
 async fn main() -> io::Result<()> {
@@ -12,7 +12,7 @@ async fn main() -> io::Result<()> {
     logging_setup();
 
     // Instantiate a new connection pool
-    let pool = get_pool();
+    let pool = pg_pool();
 
     let graphql_port: i16 = env::var("GRAPHQL_PORT")
         .unwrap_or_else(|_| String::from("80"))

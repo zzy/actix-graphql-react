@@ -7,7 +7,7 @@ use r2d2::Pool;
 // The Postgres-specific connection pool managing all database connections.
 pub type PostgresPool = Pool<ConnectionManager<PgConnection>>;
 
-pub fn get_pool() -> PostgresPool {
+pub fn pg_pool() -> PostgresPool {
     // TODO: pass the connection URL into this function rather than extracting
     // it from the environment within this function
     dotenv().ok();

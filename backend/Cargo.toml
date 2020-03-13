@@ -1,5 +1,5 @@
 [package]
-name = "actix-graphql-react-apollo"
+name = "actix-graphql-react"
 version = "0.0.1"
 authors = ["zzy <9809920@qq.com>"]
 edition = "2018"

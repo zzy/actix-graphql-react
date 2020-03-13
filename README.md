@@ -1,4 +1,4 @@
-# actix-graphql-react-apollo
+# actix-graphql-react
 
 **NOT** complete - Clean boilerplate for GraphQL app built with Rust & TypeScript.
 
@@ -36,8 +36,8 @@
 ### Backend
 
 ``` Bash
- $ git clone https://github.com/zzy/actix-graphql-react-apollo.git
- $ cd actix-graphql-react-apollo/backend/
+ $ git clone https://github.com/zzy/actix-graphql-react.git
+ $ cd actix-graphql-react/backend/
 ```
 
 #### Put the `DATABASE_URL` & `port` in a `.env` file.
@@ -56,8 +56,8 @@ GraphiQL: connect to http://localhost:5000/graphql with browser.
 ### Frontend
 
 ``` Bash
- $ git clone https://github.com/zzy/actix-graphql-react-apollo.git
- $ cd actix-graphql-react-apollo/frontend/
+ $ git clone https://github.com/zzy/actix-graphql-react.git
+ $ cd actix-graphql-react/frontend/
 ```
 
 #### yarn
@@ -74,4 +74,4 @@ GraphiQL: connect to http://localhost:5000/graphql with browser.
  $ npm start
 ```
 
-Then go to http://localhost:3000/ .
+Then go to http://localhost:3000
