@@ -1,3 +1,5 @@
+#[allow(unused_imports)]
+
 use super::schema::{users, projects};
 use juniper::GraphQLInputObject;
 use chrono::*;

@@ -16,8 +16,8 @@ impl QueryRoot {
     // all_users function name into CamelCase. But I like to keep it explicit.
     #[graphql(name = "allUsers")]
     pub fn all_users(context: &GraphQLContext) -> FieldResult<Vec<User>> {
-        // TODO: pass the GraphQLContext into the querying functions rather
-        // than a PgConnection (for brevity's sake)
+        // TODO: pass the GraphQLContext into the querying functions
+        // rather than a PgConnection (for brevity's sake)
         let conn: &PgConnection = &context.pool.get().unwrap();
 
         Users::all_users(conn)
@@ -74,7 +74,7 @@ impl MutationRoot {
     }
 
     #[graphql(name = "markUserAsNotBanned")]
-    pub fn mark_todo_as_not_done(
+    pub fn mark_user_as_not_banned(
         context: &GraphQLContext,
         user_id: i32,
     ) -> FieldResult<User> {

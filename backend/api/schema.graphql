@@ -1,0 +1,38 @@
+schema {
+  query: QueryRoot
+  mutation: MutationRoot
+}
+
+input CreateUserInput {
+  email: String!
+  username: String!
+  password: String!
+  banned: Boolean
+}
+
+# DateTime
+scalar DateTimeUtc
+
+type MutationRoot {
+  createUser(newUser: CreateUserInput!): User!
+  markUserAsBanned(userId: Int!): User!
+  markUserAsNotBanned(userId: Int!): User!
+}
+
+type QueryRoot {
+  allUsers: [User!]!
+  bannedUsers: [User!]!
+  notBannedUsers: [User!]!
+  getUserById(userId: Int!): User
+}
+
+# Users in the platform
+type User {
+  id: Int!
+  email: String!
+  username: String!
+  created_at: DateTimeUtc!
+  updated_at: DateTimeUtc!
+  banned: Boolean!
+}
+
