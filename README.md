@@ -21,7 +21,7 @@
 
 - [Rust](https://www.rust-lang.org/zh-CN)
 - [actix-web](https://crates.io/crates/actix-web) - Web server
-- [juniper](https://crates.io/crates/juniper) - GraphQL server
+- [juniper](https://crates.io/crates/juniper) - GraphQL server，[中文文档](https://juniper.budshome.com)
 - [diesel](https://crates.io/crates/diesel) - ORM
 - [PostgreSQL](https://postgresql.org) - Database
 - [jsonwebtoken](https://crates.io/crates/jsonwebtoken) - JSON Web Token
@@ -50,7 +50,7 @@ echo DATABASE_URL=postgres://username:password@localhost/actix_graphql > .env
 echo GRAPHQL_PORT=5000 >> .env
 ```
 
-#### Build / Release
+#### Build & Release
 
 - Build
 
@@ -74,22 +74,22 @@ GraphiQL: connect to http://localhost:5000/graphql with browser.
 ### Frontend
 
 ``` Bash
- $ git clone https://github.com/zzy/actix-graphql-react.git
- $ cd actix-graphql-react/frontend/
+git clone https://github.com/zzy/actix-graphql-react.git
+cd actix-graphql-react/frontend/
 ```
 
 #### yarn
 
 ``` Bash
- $ yarn install # yarn upgrade; yarn install
- $ yarn start
+yarn install # yarn upgrade; yarn install
+yarn start
 ```
 
 #### npm
 
 ``` Bash
- $ npm install # npm up; npm install
- $ npm start
+npm install # npm up; npm install
+npm start
 ```
 
 Then go to http://localhost:3000
