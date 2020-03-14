@@ -38,19 +38,35 @@
 ### Backend
 
 ``` Bash
- $ git clone https://github.com/zzy/actix-graphql-react.git
- $ cd actix-graphql-react/backend/
+git clone https://github.com/zzy/actix-graphql-react.git
+cd actix-graphql-react/backend/
 ```
 
 #### Put the `DATABASE_URL` & `port` in a `.env` file.
 
-``` Shell
-$ cargo install diesel_cli --no-default-features --features postgres
-$ echo DATABASE_URL=postgres://username:password@localhost/actix_graphql > .env
-$ echo GRAPHQL_PORT=5000 >> .env
-$ diesel setup
-$ diesel migration run // option
-$ cargo run
+``` Bash
+cargo install diesel_cli --no-default-features --features postgres
+echo DATABASE_URL=postgres://username:password@localhost/actix_graphql > .env
+echo GRAPHQL_PORT=5000 >> .env
+```
+
+#### Build / Release
+
+- Build
+
+``` Bash
+diesel setup
+diesel migration run
+cargo build
+cargo run
+```
+
+- Release
+
+``` Bash
+cargo build --release
+cd target/release
+./actix-graphql-react
 ```
 
 GraphiQL: connect to http://localhost:5000/graphql with browser.
