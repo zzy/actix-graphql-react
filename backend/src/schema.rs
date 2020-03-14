@@ -19,6 +19,7 @@ table! {
         password -> Varchar,
         created_at -> Timestamptz,
         updated_at -> Timestamptz,
+        banned -> Bool,
     }
 }
 

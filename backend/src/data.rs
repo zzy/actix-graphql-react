@@ -1,80 +1,84 @@
-use super::models::{CreateTodoInput, NewTodo, Todo};
-// use super::schema::todos::dsl::*;
 use diesel::pg::PgConnection;
 use diesel::prelude::*;
 use juniper::{graphql_value, FieldError, FieldResult};
 
-const DEFAULT_TODO_DONE: bool = false;
+use super::schema::users::dsl::*;
+use super::models::{ User, NewUser, CreateUserInput};
 
 // This struct is basically a query manager. All the methods that it
-// provides are static, making it a convenient abstraction for interacting
-// with the database.
-pub struct Todos;
+// provides are static, making it a convenient abstraction for
+// interacting with the database.
+pub struct Users;
 
 // Note that all the function names here map directly onto the function names
-// associated with the Query and Mutation structs. This is NOT necessary but
-// I personally prefer it.
-impl Todos {
-    pub fn all_todos(conn: &PgConnection) -> FieldResult<Vec<Todo>> {
-        let res = todos.load::<Todo>(conn);
+// associated with the QueryRoot and MutationRoot structs. This is NOT necessary
+// but I personally prefer it.
+impl Users {
+    pub fn all_users(conn: &PgConnection) -> FieldResult<Vec<User>> {
+        let res = users.load::<User>(conn);
 
         graphql_translate(res)
     }
 
-    pub fn create_todo(
+    pub fn create_user(
         conn: &PgConnection,
-        new_todo: CreateTodoInput,
-    ) -> FieldResult<Todo> {
-        use super::schema::todos;
+        new_user: CreateUserInput,
+    ) -> FieldResult<User> {
+        use super::schema::users;
 
-        let new_todo = NewTodo {
-            task: &new_todo.task,
-            done: &new_todo.done.unwrap_or(DEFAULT_TODO_DONE), // Default value is false
+        let new_user = NewUser {
+            email: &new_user.email,
+            username: &new_user.username,
+            password: &new_user.password,
+            banned: &new_user.banned.unwrap_or(false), // Default value is false
         };
 
-        let res = diesel::insert_into(todos::table)
-            .values(&new_todo)
+        let res = diesel::insert_into(users::table)
+            .values(&new_user)
             .get_result(conn);
 
         graphql_translate(res)
     }
 
-    pub fn get_todo_by_id(
+    pub fn get_user_by_id(
         conn: &PgConnection,
-        todo_id: i32,
-    ) -> FieldResult<Option<Todo>> {
-        match todos.find(todo_id).get_result::<Todo>(conn) {
-            Ok(todo) => Ok(Some(todo)),
+        user_id: i32,
+    ) -> FieldResult<Option<User>> {
+        match users.find(user_id).get_result::<User>(conn) {
+            Ok(user) => Ok(Some(user)),
             Err(e) => match e {
                 // Without this translation, GraphQL will return an error rather
-                // than the more semantically sound JSON null if no TODO is found.
+                // than the more semantically sound JSON null if no User is found.
                 diesel::result::Error::NotFound => FieldResult::Ok(None),
                 _ => FieldResult::Err(FieldError::from(e)),
             },
         }
     }
 
-    pub fn done_todos(conn: &PgConnection) -> FieldResult<Vec<Todo>> {
-        let res = todos.filter(done.eq(true)).load::<Todo>(conn);
+    pub fn  banned_users(conn: &PgConnection) -> FieldResult<Vec<User>> {
+        let res = users.filter(banned.eq(true)).load::<User>(conn);
 
         graphql_translate(res)
     }
 
-    pub fn not_done_todos(conn: &PgConnection) -> FieldResult<Vec<Todo>> {
-        let res = todos.filter(done.eq(false)).load::<Todo>(conn);
+    pub fn not_banned_users(conn: &PgConnection) -> FieldResult<Vec<User>> {
+        let res = users.filter(banned.eq(false)).load::<User>(conn);
 
         graphql_translate(res)
     }
 
-    pub fn mark_todo_as_done(conn: &PgConnection, todo_id: i32) -> FieldResult<Todo> {
-        mark_todo_as(conn, todo_id, true)
+    pub fn mark_user_as_banned(
+        conn: &PgConnection, 
+        user_id: i32
+    ) -> FieldResult<User> {
+        mark_user_as(conn, user_id, true)
     }
 
-    pub fn mark_todo_as_not_done(
+    pub fn mark_user_as_not_done(
         conn: &PgConnection,
-        todo_id: i32,
-    ) -> FieldResult<Todo> {
-        mark_todo_as(conn, todo_id, false)
+        user_id: i32,
+    ) -> FieldResult<User> {
+        mark_user_as(conn, user_id, false)
     }
 }
 
@@ -85,27 +89,28 @@ fn graphql_translate<T>(res: Result<T, diesel::result::Error>) -> FieldResult<T>
     }
 }
 
-// This helper function ensures that users don't mark TODOs as done that are already done
-// (or not done that are already not done).
-fn mark_todo_as(conn: &PgConnection, todo_id: i32, is_done: bool) -> FieldResult<Todo> {
-    let res = todos.find(todo_id).get_result::<Todo>(conn);
+// This helper function ensures that users don't mark Users as banned that are already banned
+// (or not banned that are already not banned).
+fn mark_user_as(conn: &PgConnection, user_id: i32, is_banned: bool) -> FieldResult<User> {
+    let res = users.find(user_id).get_result::<User>(conn);
 
     // Poor man's Ternary operator for error output text
-    let msg = if is_done { "done" } else { "not done" };
+    let msg = if is_banned { "banned" } else { "not banned" };
 
     match res {
-        Ok(todo) => {
-            if todo.done == is_done {
+        Ok(user) => {
+            if user.banned == is_banned {
                 let err = FieldError::new(
-                    format!("TODO already marked as {}", msg),
+                    format!("User already marked as {}", msg),
                     // TODO: better error output
                     graphql_value!({ "cannot_update": "confict"}),
                 );
                 FieldResult::Err(err)
-            } else {
-                let res = diesel::update(todos.find(todo_id))
-                    .set(done.eq(is_done))
-                    .get_result::<Todo>(conn);
+            }
+            else {
+                let res = diesel::update(users.find(user_id))
+                    .set(banned.eq(is_banned))
+                    .get_result::<User>(conn);
                 graphql_translate(res)
             }
         }

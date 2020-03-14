@@ -7,7 +7,8 @@ CREATE TABLE users (
 	-- bio TEXT,
 	-- avatar VARCHAR(200),
 	created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-	updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+	updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  banned BOOLEAN NOT NULL DEFAULT 'f'
 );
 
 SELECT diesel_manage_updated_at('users');

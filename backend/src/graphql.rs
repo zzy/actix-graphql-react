@@ -20,25 +20,25 @@ impl QueryRoot {
         // than a PgConnection (for brevity's sake)
         let conn: &PgConnection = &context.pool.get().unwrap();
 
-        Users::all_todos(conn)
+        Users::all_users(conn)
     }
 
-    #[graphql(name = "doneTodos")]
-    pub fn done_todos(context: &GraphQLContext) -> FieldResult<Vec<User>> {
+    #[graphql(name = "bannedUsers")]
+    pub fn banned_users(context: &GraphQLContext) -> FieldResult<Vec<User>> {
         let conn: &PgConnection = &context.pool.get().unwrap();
 
-        Todos::done_todos(conn)
+        Users::banned_users(conn)
     }
 
-    #[graphql(name = "notDoneTodos")]
-    pub fn done_todos(context: &GraphQLContext) -> FieldResult<Vec<User>> {
+    #[graphql(name = "notBannedUsers")]
+    pub fn not_banned_users(context: &GraphQLContext) -> FieldResult<Vec<User>> {
         let conn: &PgConnection = &context.pool.get().unwrap();
 
-        Todos::not_done_todos(conn)
+        Users::not_banned_users(conn)
     }
 
-    #[graphql(name = "getTodoById")]
-    pub fn get_todo_by_id(
+    #[graphql(name = "getUserById")]
+    pub fn get_user_by_id(
         context: &GraphQLContext,
         id: i32,
     ) -> FieldResult<Option<User>> {

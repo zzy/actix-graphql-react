@@ -11,10 +11,11 @@ pub struct User {
     pub passord: String,
     pub created_at: NaiveDateTime,
     pub updated_at: NaiveDateTime,
+    pub banned: bool,
 }
 
 // applying #[derive(juniper::GraphQLObject)] to the User struct above
-#[juniper::object]
+#[juniper::object(description = "Users in the platform")]
 impl User {
     #[graphql(name = "id")]
     pub fn id(&self) -> i32 {
@@ -40,6 +41,11 @@ impl User {
     pub fn updated_at(&self) -> DateTime<Utc> {
         DateTime::<Utc>::from_utc(self.updated_at, Utc)
     }
+
+    #[graphql(name = "banned")]
+    pub fn banned(&self) -> bool {
+        self.banned
+    }
 }
 
 // Used to create new user
@@ -49,6 +55,7 @@ pub struct NewUser<'a> {
     pub email: &'a str,
     pub username: &'a str,
     pub password: &'a str,
+    pub banned: &'a bool,
 }
 
 // The GraphQL input object for creating user
@@ -57,6 +64,7 @@ pub struct CreateUserInput {
     pub email: String,
     pub username: String,
     pub password: String,
+    pub banned: Option<bool>,
 }
 
 // The core data type undergirding the GraphQL interface
