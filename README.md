@@ -2,6 +2,8 @@
 
 **NOT** complete - Clean boilerplate for GraphQL app built with Rust & TypeScript.
 
+> Demo (WIP): https://cms.budshome.com/graphql
+
 ## Features
 
 - [x] DB migration with Diesel
