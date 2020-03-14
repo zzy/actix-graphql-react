@@ -40,11 +40,11 @@ impl QueryRoot {
     #[graphql(name = "getUserById")]
     pub fn get_user_by_id(
         context: &GraphQLContext,
-        id: i32,
+        user_id: i32,
     ) -> FieldResult<Option<User>> {
         let conn: &PgConnection = &context.pool.get().unwrap();
 
-        Todos::get_todo_by_id(conn, id)
+        Users::get_user_by_id(conn, user_id)
     }
 }
 
@@ -53,36 +53,39 @@ pub struct MutationRoot;
 
 #[juniper::object(Context = GraphQLContext)]
 impl MutationRoot {
-    #[graphql(name = "createTodo")]
-    pub fn create_todo(
+    #[graphql(name = "createUser")]
+    pub fn create_user(
         context: &GraphQLContext,
-        input: CreateUserInput,
+        new_user: CreateUserInput,
     ) -> FieldResult<User> {
         let conn: &PgConnection = &context.pool.get().unwrap();
 
-        Todos::create_todo(conn, input)
+        Users::create_user(conn, new_user)
     }
 
-    #[graphql(name = "markTodoAsDone")]
-    pub fn mark_todo_as_done(context: &GraphQLContext, id: i32) -> FieldResult<User> {
+    #[graphql(name = "markUserAsBanned")]
+    pub fn mark_user_as_banned(
+        context: &GraphQLContext, 
+        user_id: i32
+    ) -> FieldResult<User> {
         let conn: &PgConnection = &context.pool.get().unwrap();
 
-        Todos::mark_todo_as_done(conn, id)
+        Users::mark_user_as_banned(conn, user_id)
     }
 
-    #[graphql(name = "markTodoAsNotDone")]
+    #[graphql(name = "markUserAsNotBanned")]
     pub fn mark_todo_as_not_done(
         context: &GraphQLContext,
-        id: i32,
+        user_id: i32,
     ) -> FieldResult<User> {
         let conn: &PgConnection = &context.pool.get().unwrap();
 
-        Todos::mark_todo_as_not_done(conn, id)
+        Users::mark_user_as_not_banned(conn, user_id)
     }
 }
 
-// And finally the root schema that pulls the query and mutation together. Perhaps someday
-// you'll see a Subscription struct here as well.
+// And finally the root schema that pulls the query and mutation together.
+// Perhaps someday you'll see a Subscription struct here as well.
 pub type Schema = RootNode<'static, QueryRoot, MutationRoot>;
 
 pub fn create_schema() -> Schema {

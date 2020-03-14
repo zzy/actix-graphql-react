@@ -74,7 +74,7 @@ impl Users {
         mark_user_as(conn, user_id, true)
     }
 
-    pub fn mark_user_as_not_done(
+    pub fn mark_user_as_not_banned(
         conn: &PgConnection,
         user_id: i32,
     ) -> FieldResult<User> {
@@ -91,7 +91,11 @@ fn graphql_translate<T>(res: Result<T, diesel::result::Error>) -> FieldResult<T>
 
 // This helper function ensures that users don't mark Users as banned that are already banned
 // (or not banned that are already not banned).
-fn mark_user_as(conn: &PgConnection, user_id: i32, is_banned: bool) -> FieldResult<User> {
+fn mark_user_as(
+    conn: &PgConnection, 
+    user_id: i32, 
+    is_banned: bool
+) -> FieldResult<User> {
     let res = users.find(user_id).get_result::<User>(conn);
 
     // Poor man's Ternary operator for error output text
