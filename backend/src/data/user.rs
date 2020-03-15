@@ -2,18 +2,18 @@ use diesel::pg::PgConnection;
 use diesel::prelude::*;
 use juniper::{graphql_value, FieldError, FieldResult};
 
-use super::schema::users::dsl::*;
-use super::models::{ User, NewUser, CreateUserInput};
+use crate::schema::users::dsl::*;
+use crate::models::{ User, NewUser, CreateUserInput};
 
 // This struct is basically a query manager. All the methods that it
 // provides are static, making it a convenient abstraction for
 // interacting with the database.
-pub struct Users;
+pub struct UserDao;
 
 // Note that all the function names here map directly onto the function names
-// associated with the QueryRoot and MutationRoot structs. This is NOT necessary
-// but I personally prefer it.
-impl Users {
+// associated with the QueryRoot and MutationRoot structs.
+// This is NOT necessary but I personally prefer it.
+impl UserDao {
     pub fn all_users(conn: &PgConnection) -> FieldResult<Vec<User>> {
         let res = users.load::<User>(conn);
 
@@ -24,7 +24,7 @@ impl Users {
         conn: &PgConnection,
         new_user: CreateUserInput,
     ) -> FieldResult<User> {
-        use super::schema::users;
+        use crate::schema::users;
 
         let new_user = NewUser {
             email: &new_user.email,

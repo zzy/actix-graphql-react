@@ -126,19 +126,24 @@ impl Project {
     }
 }
 
-// // Used to create new project
-// #[derive(Insertable)]
-// #[table_name = "projects"]
-// pub struct NewProject<'a> {
-//     pub user_id: &'a str,
-//     pub subject: &'a str,
-//     pub website: &'a str,
-// }
+// Used to create new project
+#[derive(Insertable)]
+#[table_name = "projects"]
+pub struct NewProject<'a> {
+    pub user_id: &'a i32,
+    pub subject: &'a str,
+    pub website: &'a str,
+    pub source_code: &'a str,
+    pub published: &'a bool,
 
-// // The GraphQL input object for creating project
-// #[derive(GraphQLInputObject)]
-// pub struct CreateProjectInput {
-//     pub email: String,
-//     pub username: String,
-//     pub password: String,
-// }
+}
+
+// The GraphQL input object for creating project
+#[derive(GraphQLInputObject)]
+pub struct CreateProjectInput {
+    pub user_id: i32,
+    pub subject: String,
+    pub website: String,
+    pub source_code: String,
+    pub published: Option<bool>,
+}

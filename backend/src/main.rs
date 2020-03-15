@@ -15,7 +15,7 @@ async fn main() -> io::Result<()> {
     let pool = pg_pool();
 
     let graphql_port: i16 = env::var("GRAPHQL_PORT")
-        .unwrap_or_else(|_| String::from("80"))
+        .unwrap_or_else(|_| String::from("5000"))
         .parse()
         .expect("GRAPHQL_PORT must be a number");
 

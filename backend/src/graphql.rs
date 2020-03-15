@@ -2,7 +2,7 @@ use super::context::GraphQLContext;
 use diesel::pg::PgConnection;
 use juniper::{FieldResult, RootNode};
 
-use super::data::Users;
+use super::data::user::UserDao;
 use super::models::{User, CreateUserInput};
 
 // The root GraphQL query
@@ -20,21 +20,21 @@ impl QueryRoot {
         // rather than a PgConnection (for brevity's sake)
         let conn: &PgConnection = &context.pool.get().unwrap();
 
-        Users::all_users(conn)
+        UserDao::all_users(conn)
     }
 
     #[graphql(name = "bannedUsers")]
     pub fn banned_users(context: &GraphQLContext) -> FieldResult<Vec<User>> {
         let conn: &PgConnection = &context.pool.get().unwrap();
 
-        Users::banned_users(conn)
+        UserDao::banned_users(conn)
     }
 
     #[graphql(name = "notBannedUsers")]
     pub fn not_banned_users(context: &GraphQLContext) -> FieldResult<Vec<User>> {
         let conn: &PgConnection = &context.pool.get().unwrap();
 
-        Users::not_banned_users(conn)
+        UserDao::not_banned_users(conn)
     }
 
     #[graphql(name = "getUserById")]
@@ -44,7 +44,7 @@ impl QueryRoot {
     ) -> FieldResult<Option<User>> {
         let conn: &PgConnection = &context.pool.get().unwrap();
 
-        Users::get_user_by_id(conn, user_id)
+        UserDao::get_user_by_id(conn, user_id)
     }
 }
 
@@ -60,7 +60,7 @@ impl MutationRoot {
     ) -> FieldResult<User> {
         let conn: &PgConnection = &context.pool.get().unwrap();
 
-        Users::create_user(conn, new_user)
+        UserDao::create_user(conn, new_user)
     }
 
     #[graphql(name = "markUserAsBanned")]
@@ -70,7 +70,7 @@ impl MutationRoot {
     ) -> FieldResult<User> {
         let conn: &PgConnection = &context.pool.get().unwrap();
 
-        Users::mark_user_as_banned(conn, user_id)
+        UserDao::mark_user_as_banned(conn, user_id)
     }
 
     #[graphql(name = "markUserAsNotBanned")]
@@ -80,7 +80,7 @@ impl MutationRoot {
     ) -> FieldResult<User> {
         let conn: &PgConnection = &context.pool.get().unwrap();
 
-        Users::mark_user_as_not_banned(conn, user_id)
+        UserDao::mark_user_as_not_banned(conn, user_id)
     }
 }
 
