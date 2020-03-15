@@ -6,12 +6,12 @@ use crate::graphql::context::GraphQLContext;
 use crate::models::project::{ Project, ProjectInput };
 use crate::data::project::ProjectDao;
 
-// use super::MutationRoot;
+use super::MutationRoot;
 
 // The root Query struct relies on GraphQLContext to provide the connection pool
 // needed to execute actual Postgres queries.
-// #[juniper::object(Context = GraphQLContext)]
-impl juniper::types::base::GraphQLType for MutationRoot {
+#[juniper::object(Context = GraphQLContext)]
+impl MutationRoot {
     #[graphql(name = "createProject")]
     pub fn create_project(
         context: &GraphQLContext,

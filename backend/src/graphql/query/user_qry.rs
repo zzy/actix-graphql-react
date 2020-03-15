@@ -1,17 +1,17 @@
 use diesel::pg::PgConnection;
 use juniper::FieldResult;
 
-use super::context::GraphQLContext;
+use crate::graphql::context::GraphQLContext;
 
 use crate::models::user::User;
 use crate::data::user::UserDao;
 
-// use super::QueryRoot;
+use super::QueryRoot;
 
 // The root Query struct relies on GraphQLContext to provide the connection pool
 // needed to execute actual Postgres queries.
-// #[juniper::object(Context = GraphQLContext)]
-impl juniper::types::base::GraphQLType for QueryRoot {
+#[juniper::object(Context = GraphQLContext)]
+impl QueryRoot {
     // This annotation isn't really necessary, as Juniper would convert the
     // all_users function name into CamelCase. But I like to keep it explicit.
     #[graphql(name = "allUsers")]

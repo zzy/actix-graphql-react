@@ -6,12 +6,12 @@ use crate::graphql::context::GraphQLContext;
 use crate::models::user::{ User, UserInput };
 use crate::data::user::UserDao;
 
-// use super::MutationRoot;
+use super::MutationRoot;
 
 // The root Query struct relies on GraphQLContext to provide the connection pool
 // needed to execute actual Postgres queries.
-// #[juniper::object(Context = GraphQLContext)]
-impl juniper::types::base::GraphQLType for MutationRoot {
+#[juniper::object(Context = GraphQLContext)]
+impl MutationRoot {
     #[graphql(name = "createUser")]
     pub fn create_user(
         context: &GraphQLContext,
