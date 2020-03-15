@@ -63,22 +63,9 @@ pub struct NewUser<'a> {
 
 // The GraphQL input object for creating user
 #[derive(GraphQLInputObject)]
-pub struct CreateUserInput {
+pub struct UserInput {
     pub email: String,
     pub username: String,
     pub password: String,
     pub banned: Option<bool>,
-}
-
-// The core data type undergirding the GraphQL interface
-#[derive(Queryable)]
-pub struct Project {
-    pub id: i32,
-    pub user_id: i32,
-    pub subject: String,
-    pub website: String,
-    pub source_code: String,
-    pub created_at: NaiveDateTime,
-    pub updated_at: NaiveDateTime,
-    pub published: bool,
 }

@@ -3,7 +3,8 @@ use diesel::prelude::*;
 use juniper::{graphql_value, FieldError, FieldResult};
 
 use crate::schema::users::dsl::*;
-use crate::models::user::{ User, NewUser, CreateUserInput};
+use crate::models::user::{ User, NewUser, UserInput };
+use super::utils::graphql_translate;
 
 // This struct is basically a query manager. All the methods that it
 // provides are static, making it a convenient abstraction for
@@ -22,15 +23,15 @@ impl UserDao {
 
     pub fn create_user(
         conn: &PgConnection,
-        new_user: CreateUserInput,
+        user_input: UserInput,
     ) -> FieldResult<User> {
         use crate::schema::users;
 
         let new_user = NewUser {
-            email: &new_user.email,
-            username: &new_user.username,
-            password: &new_user.password,
-            banned: &new_user.banned.unwrap_or(false), // Default value is false
+            email: &user_input.email,
+            username: &user_input.username,
+            password: &user_input.password,
+            banned: &user_input.banned.unwrap_or(false), // Default value is false
         };
 
         let res = diesel::insert_into(users::table)
@@ -82,14 +83,7 @@ impl UserDao {
     }
 }
 
-fn graphql_translate<T>(res: Result<T, diesel::result::Error>) -> FieldResult<T> {
-    match res {
-        Ok(t) => Ok(t),
-        Err(e) => FieldResult::Err(FieldError::from(e)),
-    }
-}
-
-// This helper function ensures that users don't mark Users as banned that are already banned
+// This helper function ensures that users don't mark User as banned that are already banned
 // (or not banned that are already not banned).
 fn mark_user_as(
     conn: &PgConnection, 

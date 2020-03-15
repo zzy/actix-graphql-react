@@ -2,8 +2,9 @@ use std::{env, io};
 use dotenv::dotenv;
 use actix_web::{middleware, App, HttpServer};
 
-use actix_graphql_react::data::db::pg_pool;
-use actix_graphql_react::graphql::endpoints;
+// agract is the name defined in the cargo.toml.
+use agract::data::db::pg_pool;
+use agract::graphql::endpoints;
 
 #[actix_rt::main]
 async fn main() -> io::Result<()> {

@@ -47,24 +47,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "actix-graphql-react"
-version = "0.0.1"
-dependencies = [
- "actix-cors",
- "actix-rt",
- "actix-web",
- "chrono",
- "diesel",
- "dotenv",
- "env_logger",
- "jsonwebtoken",
- "juniper",
- "r2d2",
- "serde_json",
- "uuid 0.8.1",
-]
-
-[[package]]
 name = "actix-http"
 version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -292,6 +274,24 @@ name = "adler32"
 version = "1.0.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5d2e7343e7fc9de883d1b0341e0b13970f764c14101234857d2ddafa1cb1cac2"
+
+[[package]]
+name = "agract"
+version = "0.0.1"
+dependencies = [
+ "actix-cors",
+ "actix-rt",
+ "actix-web",
+ "chrono",
+ "diesel",
+ "dotenv",
+ "env_logger",
+ "jsonwebtoken",
+ "juniper",
+ "r2d2",
+ "serde_json",
+ "uuid 0.8.1",
+]
 
 [[package]]
 name = "aho-corasick"

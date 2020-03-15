@@ -76,7 +76,7 @@ pub struct NewProject<'a> {
 
 // The GraphQL input object for creating project
 #[derive(GraphQLInputObject)]
-pub struct CreateProjectInput {
+pub struct ProjectInput {
     pub user_id: i32,
     pub subject: String,
     pub website: String,

@@ -2,7 +2,7 @@ use diesel::pg::PgConnection;
 use juniper::FieldResult;
 
 use crate::data::user::UserDao;
-use crate::models::user::{User, CreateUserInput};
+use crate::models::user::{User, UserInput};
 use super::context::GraphQLContext;
 
 // The root GraphQL mutation
@@ -13,11 +13,11 @@ impl MutationRoot {
     #[graphql(name = "createUser")]
     pub fn create_user(
         context: &GraphQLContext,
-        new_user: CreateUserInput,
+        user_input: UserInput,
     ) -> FieldResult<User> {
         let conn: &PgConnection = &context.pool.get().unwrap();
 
-        UserDao::create_user(conn, new_user)
+        UserDao::create_user(conn, user_input)
     }
 
     #[graphql(name = "markUserAsBanned")]
