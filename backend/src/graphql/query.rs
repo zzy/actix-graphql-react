@@ -1,9 +1,9 @@
-use super::context::GraphQLContext;
 use diesel::pg::PgConnection;
-use juniper::{FieldResult, RootNode};
+use juniper::FieldResult;
 
-use super::data::user::UserDao;
-use super::models::{User, CreateUserInput};
+use crate::context::GraphQLContext;
+use crate::data::user::UserDao;
+use crate::models::User;
 
 // The root GraphQL query
 pub struct QueryRoot;
@@ -46,48 +46,4 @@ impl QueryRoot {
 
         UserDao::get_user_by_id(conn, user_id)
     }
-}
-
-// The root GraphQL mutation
-pub struct MutationRoot;
-
-#[juniper::object(Context = GraphQLContext)]
-impl MutationRoot {
-    #[graphql(name = "createUser")]
-    pub fn create_user(
-        context: &GraphQLContext,
-        new_user: CreateUserInput,
-    ) -> FieldResult<User> {
-        let conn: &PgConnection = &context.pool.get().unwrap();
-
-        UserDao::create_user(conn, new_user)
-    }
-
-    #[graphql(name = "markUserAsBanned")]
-    pub fn mark_user_as_banned(
-        context: &GraphQLContext, 
-        user_id: i32
-    ) -> FieldResult<User> {
-        let conn: &PgConnection = &context.pool.get().unwrap();
-
-        UserDao::mark_user_as_banned(conn, user_id)
-    }
-
-    #[graphql(name = "markUserAsNotBanned")]
-    pub fn mark_user_as_not_banned(
-        context: &GraphQLContext,
-        user_id: i32,
-    ) -> FieldResult<User> {
-        let conn: &PgConnection = &context.pool.get().unwrap();
-
-        UserDao::mark_user_as_not_banned(conn, user_id)
-    }
-}
-
-// And finally the root schema that pulls the query and mutation together.
-// Perhaps someday you'll see a Subscription struct here as well.
-pub type Schema = RootNode<'static, QueryRoot, MutationRoot>;
-
-pub fn create_schema() -> Schema {
-    Schema::new(QueryRoot, MutationRoot)
 }

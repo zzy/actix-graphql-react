@@ -1,10 +1,9 @@
-use dotenv::dotenv;
 use std::{env, io};
-
+use dotenv::dotenv;
 use actix_web::{middleware, App, HttpServer};
 
 use actix_graphql_react::db::pg_pool;
-use actix_graphql_react::endpoints::graphql_endpoints;
+use actix_graphql_react::graphql::endpoints;
 
 #[actix_rt::main]
 async fn main() -> io::Result<()> {
@@ -26,7 +25,7 @@ async fn main() -> io::Result<()> {
         App::new()
             .data(pool.clone())
             .wrap(middleware::Logger::default())
-            .configure(graphql_endpoints)
+            .configure(endpoints)
     })
     .bind(format!("0.0.0.0:{}", graphql_port))?
     .run();

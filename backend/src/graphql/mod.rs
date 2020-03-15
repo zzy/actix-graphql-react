@@ -1,24 +1,39 @@
-use super::context::GraphQLContext;
-use super::db::PostgresPool;
-use super::graphql::create_schema;
-use super::graphql::Schema;
-use actix_web::{web, Error, HttpResponse};
-use juniper::http::playground::playground_source;
-use juniper::http::GraphQLRequest;
+
 use std::sync::Arc;
+use juniper::RootNode;
+use juniper::http::GraphQLRequest;
+use juniper::http::playground::playground_source;
+use actix_web::{web, Error, HttpResponse};
+
+use crate::context::GraphQLContext;
+use crate::db::PostgresPool;
+
+pub mod query;
+pub mod mutation;
+
+use query::QueryRoot;
+use mutation::MutationRoot;
+
+// The root schema that pulls the query and mutation together.
+// Perhaps someday you'll see a Subscription struct here as well.
+pub type Schema = RootNode<'static, QueryRoot, MutationRoot>;
+
+pub fn create_schema() -> Schema {
+    Schema::new(QueryRoot, MutationRoot)
+}
 
 // The configuration callback that enables us to add the /graphql route
 // to the actix-web server.
-pub fn graphql_endpoints(config: &mut web::ServiceConfig) {
+pub fn endpoints(config: &mut web::ServiceConfig) {
     let schema = Arc::new(create_schema());
     config
         .data(schema)
         .route("/graphql", web::post().to(graphql))
-        .route("/graphql", web::get().to(graphql_playground));
+        .route("/graphql", web::get().to(playground));
 }
 
 // The GraphQL Playground route.
-async fn graphql_playground() -> HttpResponse {
+async fn playground() -> HttpResponse {
     HttpResponse::Ok()
         .content_type("text/html; charset=utf-8")
         .body(playground_source("/graphql"))
