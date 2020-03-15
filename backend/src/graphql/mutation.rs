@@ -2,7 +2,7 @@ use diesel::pg::PgConnection;
 use juniper::FieldResult;
 
 use crate::data::user::UserDao;
-use crate::models::{User, CreateUserInput};
+use crate::models::user::{User, CreateUserInput};
 use super::context::GraphQLContext;
 
 // The root GraphQL mutation

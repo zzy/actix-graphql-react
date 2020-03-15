@@ -3,7 +3,7 @@ use diesel::prelude::*;
 use juniper::{graphql_value, FieldError, FieldResult};
 
 use crate::schema::users::dsl::*;
-use crate::models::{ User, NewUser, CreateUserInput};
+use crate::models::user::{ User, NewUser, CreateUserInput};
 
 // This struct is basically a query manager. All the methods that it
 // provides are static, making it a convenient abstraction for

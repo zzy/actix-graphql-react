@@ -2,7 +2,7 @@ use diesel::pg::PgConnection;
 use juniper::FieldResult;
 
 use crate::data::user::UserDao;
-use crate::models::User;
+use crate::models::user::User;
 use super::context::GraphQLContext;
 
 // The root GraphQL query
