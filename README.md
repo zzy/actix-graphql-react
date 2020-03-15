@@ -7,11 +7,11 @@
 ## Features
 
 - [x] DB migration with Diesel
-- [x] User query
+- [x] User: query & mutation
+- [x] Project: query & mutation
 - [x] User register
-- [ ] Sign up
-- [ ] Sign in
-- [ ] Change password
+- [ ] Sign up & Sign in
+- [ ] Encrypt password & Change password
 - [ ] Profile Update
 - [ ] JSON web token authentication
 
