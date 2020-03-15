@@ -5,12 +5,13 @@ use juniper::http::GraphQLRequest;
 use juniper::http::playground::playground_source;
 use actix_web::{web, Error, HttpResponse};
 
-use crate::context::GraphQLContext;
-use crate::db::PostgresPool;
+use crate::data::db::PostgresPool;
 
+pub mod context;
 pub mod query;
 pub mod mutation;
 
+use context::GraphQLContext;
 use query::QueryRoot;
 use mutation::MutationRoot;
 

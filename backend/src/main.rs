@@ -2,7 +2,7 @@ use std::{env, io};
 use dotenv::dotenv;
 use actix_web::{middleware, App, HttpServer};
 
-use actix_graphql_react::db::pg_pool;
+use actix_graphql_react::data::db::pg_pool;
 use actix_graphql_react::graphql::endpoints;
 
 #[actix_rt::main]

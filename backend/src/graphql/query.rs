@@ -1,9 +1,9 @@
 use diesel::pg::PgConnection;
 use juniper::FieldResult;
 
-use crate::context::GraphQLContext;
 use crate::data::user::UserDao;
 use crate::models::User;
+use super::context::GraphQLContext;
 
 // The root GraphQL query
 pub struct QueryRoot;
