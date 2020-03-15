@@ -1,9 +1,13 @@
 use diesel::pg::PgConnection;
 use juniper::FieldResult;
 
-use crate::data::user::UserDao;
-use crate::models::user::User;
 use super::context::GraphQLContext;
+
+use crate::models::user::User;
+use crate::data::user::UserDao;
+
+use crate::models::project::Project;
+use crate::data::project::ProjectDao;
 
 // The root GraphQL query
 pub struct QueryRoot;
@@ -45,5 +49,40 @@ impl QueryRoot {
         let conn: &PgConnection = &context.pool.get().unwrap();
 
         UserDao::get_user_by_id(conn, user_id)
+    }
+
+        // This annotation isn't really necessary, as Juniper would convert the
+    // all_users function name into CamelCase. But I like to keep it explicit.
+    #[graphql(name = "allProjects")]
+    pub fn all_projects(context: &GraphQLContext) -> FieldResult<Vec<Project>> {
+        // TODO: pass the GraphQLContext into the querying functions
+        // rather than a PgConnection (for brevity's sake)
+        let conn: &PgConnection = &context.pool.get().unwrap();
+
+        ProjectDao::all_projects(conn)
+    }
+
+    #[graphql(name = "publishedProjects")]
+    pub fn published_projects(context: &GraphQLContext) -> FieldResult<Vec<Project>> {
+        let conn: &PgConnection = &context.pool.get().unwrap();
+
+        ProjectDao::published_projects(conn)
+    }
+
+    #[graphql(name = "notPublishedProjects")]
+    pub fn not_published_projects(context: &GraphQLContext) -> FieldResult<Vec<Project>> {
+        let conn: &PgConnection = &context.pool.get().unwrap();
+
+        ProjectDao::not_published_projects(conn)
+    }
+
+    #[graphql(name = "getProjectById")]
+    pub fn get_project_by_id(
+        context: &GraphQLContext,
+        project_id: i32,
+    ) -> FieldResult<Option<Project>> {
+        let conn: &PgConnection = &context.pool.get().unwrap();
+
+        ProjectDao::get_project_by_id(conn, project_id)
     }
 }
