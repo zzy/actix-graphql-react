@@ -21,6 +21,21 @@ impl UserDao {
         graphql_translate(res)
     }
 
+    pub fn get_user_by_id(
+        conn: &PgConnection,
+        user_id: i32,
+    ) -> FieldResult<Option<User>> {
+        match users.find(user_id).get_result::<User>(conn) {
+            Ok(user) => Ok(Some(user)),
+            Err(e) => match e {
+                // Without this translation, GraphQL will return an error rather
+                // than the more semantically sound JSON null if no User is found.
+                diesel::result::Error::NotFound => FieldResult::Ok(None),
+                _ => FieldResult::Err(FieldError::from(e)),
+            },
+        }
+    }
+
     pub fn create_user(
         conn: &PgConnection,
         user_input: UserInput,
@@ -41,22 +56,7 @@ impl UserDao {
         graphql_translate(res)
     }
 
-    pub fn get_user_by_id(
-        conn: &PgConnection,
-        user_id: i32,
-    ) -> FieldResult<Option<User>> {
-        match users.find(user_id).get_result::<User>(conn) {
-            Ok(user) => Ok(Some(user)),
-            Err(e) => match e {
-                // Without this translation, GraphQL will return an error rather
-                // than the more semantically sound JSON null if no User is found.
-                diesel::result::Error::NotFound => FieldResult::Ok(None),
-                _ => FieldResult::Err(FieldError::from(e)),
-            },
-        }
-    }
-
-    pub fn  banned_users(conn: &PgConnection) -> FieldResult<Vec<User>> {
+    pub fn banned_users(conn: &PgConnection) -> FieldResult<Vec<User>> {
         let res = users.filter(banned.eq(true)).load::<User>(conn);
 
         graphql_translate(res)

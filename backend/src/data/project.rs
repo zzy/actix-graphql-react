@@ -21,6 +21,30 @@ impl ProjectDao {
         graphql_translate(res)
     }
 
+    pub fn user_projects(
+        conn: &PgConnection,
+        project_user_id: i32
+    ) -> FieldResult<Vec<Project>> {
+        let res = projects.filter(user_id.eq(project_user_id)).load::<Project>(conn);
+
+        graphql_translate(res)
+    }
+
+    pub fn get_project_by_id(
+        conn: &PgConnection,
+        project_id: i32
+    ) -> FieldResult<Option<Project>> {
+        match projects.find(project_id).get_result::<Project>(conn) {
+            Ok(project) => Ok(Some(project)),
+            Err(e) => match e {
+                // Without this translation, GraphQL will return an error rather
+                // than the more semantically sound JSON null if no Project is found.
+                diesel::result::Error::NotFound => FieldResult::Ok(None),
+                _ => FieldResult::Err(FieldError::from(e)),
+            },
+        }
+    }
+
     pub fn create_project(
         conn: &PgConnection,
         project_input: ProjectInput,
@@ -42,22 +66,7 @@ impl ProjectDao {
         graphql_translate(res)
     }
 
-    pub fn get_project_by_id(
-        conn: &PgConnection,
-        project_id: i32,
-    ) -> FieldResult<Option<Project>> {
-        match projects.find(project_id).get_result::<Project>(conn) {
-            Ok(project) => Ok(Some(project)),
-            Err(e) => match e {
-                // Without this translation, GraphQL will return an error rather
-                // than the more semantically sound JSON null if no Project is found.
-                diesel::result::Error::NotFound => FieldResult::Ok(None),
-                _ => FieldResult::Err(FieldError::from(e)),
-            },
-        }
-    }
-
-    pub fn  published_projects(conn: &PgConnection) -> FieldResult<Vec<Project>> {
+    pub fn published_projects(conn: &PgConnection) -> FieldResult<Vec<Project>> {
         let res = projects.filter(published.eq(true)).load::<Project>(conn);
 
         graphql_translate(res)
@@ -78,7 +87,7 @@ impl ProjectDao {
 
     pub fn mark_project_as_not_published(
         conn: &PgConnection,
-        project_id: i32,
+        project_id: i32
     ) -> FieldResult<Project> {
         mark_project_as(conn, project_id, false)
     }
