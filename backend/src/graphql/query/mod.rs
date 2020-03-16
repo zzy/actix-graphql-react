@@ -2,11 +2,11 @@ use juniper::FieldResult;
 
 use super::context::GraphQLContext;
 
-use crate::models::project::Project;
 use crate::models::user::User;
+use crate::models::project::Project;
 
-pub mod project_qry;
 pub mod user_qry;
+pub mod project_qry;
 
 // The root GraphQL query
 pub struct QueryRoot;

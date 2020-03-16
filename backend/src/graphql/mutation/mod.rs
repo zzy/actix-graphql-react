@@ -2,11 +2,11 @@ use juniper::FieldResult;
 
 use super::context::GraphQLContext;
 
-use crate::models::project::{Project, ProjectInput};
 use crate::models::user::{User, UserInput};
+use crate::models::project::{Project, ProjectInput};
 
-pub mod project_mut;
 pub mod user_mut;
+pub mod project_mut;
 
 // The root GraphQL mutation
 pub struct MutationRoot;
