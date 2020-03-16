@@ -1,5 +1,5 @@
 [package]
-name = "agract"
+name = "agract-backend"
 version = "0.0.1"
 authors = ["zzy <9809920@qq.com>"]
 edition = "2018"
