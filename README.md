@@ -2,7 +2,8 @@
 
 **NOT** complete - Clean boilerplate for GraphQL app built with Rust & TypeScript.
 
-> Demo (WIP): https://cms.budshome.com/graphql
+* Backend Demo (WIP): https://api.budshome.com/graphql
+* Frontend Demo (WIP): https://cms.budshome.com
 
 ## Features
 
