@@ -23,21 +23,21 @@ pub fn create_schema() -> Schema {
     Schema::new(QueryRoot, MutationRoot)
 }
 
-// The configuration callback that enables us to add the /graphql route
+// The configuration callback that enables us to add the /gql route
 // to the actix-web server.
 pub fn endpoints(config: &mut web::ServiceConfig) {
     let schema = Arc::new(create_schema());
     config
         .data(schema)
-        .route("/graphql", web::post().to(graphql))
-        .route("/graphql", web::get().to(playground));
+        .route("/gql", web::post().to(graphql))
+        .route("/gql", web::get().to(playground));
 }
 
 // The GraphQL Playground route.
 async fn playground() -> HttpResponse {
     HttpResponse::Ok()
         .content_type("text/html; charset=utf-8")
-        .body(playground_source("/graphql"))
+        .body(playground_source("/gql"))
 }
 
 // The core handler that provides all GraphQL functionality.

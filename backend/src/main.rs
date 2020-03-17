@@ -20,8 +20,8 @@ async fn main() -> io::Result<()> {
         .expect("GRAPHQL_PORT must be a number");
 
     // Start up the server, passing in (a) the connection pool
-    // to make it available to all endpoints and (b) the configuration
-    // function that adds the /graphql logic.
+    // to make it available to all endpoints and (b)
+    // the configuration function that adds the /gql logic.
     let server = HttpServer::new(move || {
         App::new()
             .data(pool.clone())

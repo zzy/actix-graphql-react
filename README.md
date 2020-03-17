@@ -2,7 +2,7 @@
 
 **NOT** complete - Clean boilerplate for GraphQL app built with Rust & TypeScript.
 
-* Backend Demo (WIP): https://api.budshome.com/graphql
+* Backend Demo (WIP): https://api.budshome.com/gql
 * Frontend Demo (WIP): https://cms.budshome.com
 
 ## Features
@@ -70,7 +70,7 @@ cd target/release
 ./actix-graphql-react
 ```
 
-GraphiQL: connect to http://localhost:5000/graphql with browser.
+GraphiQL: connect to http://localhost:5000/gql with browser.
 
 ### Frontend
 
