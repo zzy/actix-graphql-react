@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "agract-frontend",
+  "name": "agract-frontend",
   "icons": [
     {
       "src": "favicon.ico",
