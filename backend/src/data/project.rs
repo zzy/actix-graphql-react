@@ -3,7 +3,7 @@ use diesel::prelude::*;
 use juniper::{graphql_value, FieldError, FieldResult};
 
 use crate::schema::projects::dsl::*;
-use crate::models::project::{ Project, NewProject, ProjectInput };
+use crate::models::{ Project, NewProject, ProjectInput };
 use super::utils::graphql_translate;
 
 // This struct is basically a query manager. All the methods that it

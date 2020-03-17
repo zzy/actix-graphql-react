@@ -2,8 +2,8 @@ use diesel::pg::PgConnection;
 use juniper::FieldResult;
 
 use crate::graphql::context::GraphQLContext;
-use crate::models::project::{Project, ProjectInput};
-use crate::data::project::ProjectDao;
+use crate::models::{ Project, ProjectInput };
+use crate::data::ProjectDao;
 
 pub fn create_project(
     context: &GraphQLContext,

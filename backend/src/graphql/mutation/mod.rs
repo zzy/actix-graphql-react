@@ -2,8 +2,7 @@ use juniper::FieldResult;
 
 use super::context::GraphQLContext;
 
-use crate::models::user::{User, UserInput};
-use crate::models::project::{Project, ProjectInput};
+use crate::models::{ User, UserInput, Project, ProjectInput };
 
 pub mod user_mut;
 pub mod project_mut;

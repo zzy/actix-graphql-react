@@ -2,8 +2,8 @@ use diesel::pg::PgConnection;
 use juniper::FieldResult;
 
 use crate::graphql::context::GraphQLContext;
-use crate::models::user::{User, UserInput};
-use crate::data::user::UserDao;
+use crate::models::{ User, UserInput };
+use crate::data::UserDao;
 
 pub fn create_user(
     context: &GraphQLContext, 

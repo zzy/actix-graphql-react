@@ -2,8 +2,8 @@ use diesel::pg::PgConnection;
 use juniper::FieldResult;
 
 use crate::graphql::context::GraphQLContext;
-use crate::data::user::UserDao;
-use crate::models::user::User;
+use crate::data::UserDao;
+use crate::models::User;
 
 pub fn all_users(
     context: &GraphQLContext
