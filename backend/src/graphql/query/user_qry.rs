@@ -15,6 +15,15 @@ pub fn all_users(
     UserDao::all_users(conn)
 }
 
+pub fn get_user_by_id(
+    context: &GraphQLContext,
+    user_id: i32
+) -> FieldResult<Option<User>> {
+    let conn: &PgConnection = &context.pool.get().unwrap();
+
+    UserDao::get_user_by_id(conn, user_id)
+}
+
 pub fn banned_users(
     context: &GraphQLContext
 ) -> FieldResult<Vec<User>> {
@@ -29,13 +38,4 @@ pub fn not_banned_users(
     let conn: &PgConnection = &context.pool.get().unwrap();
 
     UserDao::not_banned_users(conn)
-}
-
-pub fn get_user_by_id(
-    context: &GraphQLContext,
-    user_id: i32
-) -> FieldResult<Option<User>> {
-    let conn: &PgConnection = &context.pool.get().unwrap();
-
-    UserDao::get_user_by_id(conn, user_id)
 }

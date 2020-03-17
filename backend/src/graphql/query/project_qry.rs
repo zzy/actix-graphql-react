@@ -15,6 +15,24 @@ pub fn all_projects(
     ProjectDao::all_projects(conn)
 }
 
+pub fn get_projects_by_user(
+    context: &GraphQLContext,
+    project_user_id: i32
+) -> FieldResult<Vec<Project>> {
+    let conn: &PgConnection = &context.pool.get().unwrap();
+
+    ProjectDao::get_projects_by_user(conn, project_user_id)
+}
+
+pub fn get_project_by_id(
+    context: &GraphQLContext,
+    project_id: i32
+) -> FieldResult<Option<Project>> {
+    let conn: &PgConnection = &context.pool.get().unwrap();
+
+    ProjectDao::get_project_by_id(conn, project_id)
+}
+
 pub fn published_projects(
     context: &GraphQLContext
 ) -> FieldResult<Vec<Project>> {
@@ -29,13 +47,4 @@ pub fn not_published_projects(
     let conn: &PgConnection = &context.pool.get().unwrap();
 
     ProjectDao::not_published_projects(conn)
-}
-
-pub fn get_project_by_id(
-    context: &GraphQLContext,
-    project_id: i32
-) -> FieldResult<Option<Project>> {
-    let conn: &PgConnection = &context.pool.get().unwrap();
-
-    ProjectDao::get_project_by_id(conn, project_id)
 }

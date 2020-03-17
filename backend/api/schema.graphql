@@ -37,13 +37,14 @@ input ProjectInput {
 
 type QueryRoot {
   allUsers: [User!]!
+  getUserById(userId: Int!): User
   bannedUsers: [User!]!
   notBannedUsers: [User!]!
-  getUserById(userId: Int!): User
   allProjects: [Project!]!
+  getProjectsByUser(projectUserId: Int!): [Project!]!
+  getProjectById(projectId: Int!): Project
   publishedProjects: [Project!]!
   notPublishedProjects: [Project!]!
-  getProjectById(projectId: Int!): Project
 }
 
 # Users in the platform

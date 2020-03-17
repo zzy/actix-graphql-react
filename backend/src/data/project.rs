@@ -21,7 +21,7 @@ impl ProjectDao {
         graphql_translate(res)
     }
 
-    pub fn user_projects(
+    pub fn get_projects_by_user(
         conn: &PgConnection,
         project_user_id: i32
     ) -> FieldResult<Vec<Project>> {
@@ -29,7 +29,7 @@ impl ProjectDao {
 
         graphql_translate(res)
     }
-
+    
     pub fn get_project_by_id(
         conn: &PgConnection,
         project_id: i32

@@ -23,6 +23,11 @@ impl QueryRoot {
         user_qry::all_users(context)
     }
 
+    #[graphql(name = "getUserById")]
+    pub fn get_user_by_id(context: &GraphQLContext, user_id: i32) -> FieldResult<Option<User>> {
+        user_qry::get_user_by_id(context, user_id)
+    }
+
     #[graphql(name = "bannedUsers")]
     pub fn banned_users(context: &GraphQLContext) -> FieldResult<Vec<User>> {
         user_qry::banned_users(context)
@@ -32,16 +37,21 @@ impl QueryRoot {
     pub fn not_banned_users(context: &GraphQLContext) -> FieldResult<Vec<User>> {
         user_qry::not_banned_users(context)
     }
-
-    #[graphql(name = "getUserById")]
-    pub fn get_user_by_id(context: &GraphQLContext, user_id: i32) -> FieldResult<Option<User>> {
-        user_qry::get_user_by_id(context, user_id)
-    }
     
     // project
     #[graphql(name = "allProjects")]
     pub fn all_projects(context: &GraphQLContext) -> FieldResult<Vec<Project>> {
         project_qry::all_projects(context)
+    }
+
+    #[graphql(name = "getProjectsByUser")]
+    pub fn get_projects_by_user(context: &GraphQLContext, project_user_id: i32) -> FieldResult<Vec<Project>> {
+        project_qry::get_projects_by_user(context, project_user_id)
+    }
+
+    #[graphql(name = "getProjectById")]
+    pub fn get_project_by_id(context: &GraphQLContext, project_id: i32) -> FieldResult<Option<Project>> {
+        project_qry::get_project_by_id(context, project_id)
     }
 
     #[graphql(name = "publishedProjects")]
@@ -52,10 +62,5 @@ impl QueryRoot {
     #[graphql(name = "notPublishedProjects")]
     pub fn not_published_projects(context: &GraphQLContext) -> FieldResult<Vec<Project>> {
         project_qry::not_published_projects(context)
-    }
-
-    #[graphql(name = "getProjectById")]
-    pub fn get_project_by_id(context: &GraphQLContext, project_id: i32) -> FieldResult<Option<Project>> {
-        project_qry::get_project_by_id(context, project_id)
     }
 }
