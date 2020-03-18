@@ -12,14 +12,22 @@
     "@types/react-dom": "^16.9.5",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "react-scripts": "3.4.0",
+    "react-relay": "^9.0.0",
+    "react-scripts": "^3.4.0",
     "typescript": "^3.8.3"
+  },
+  "devDependencies": {
+    "relay-config": "^9.0.0",
+    "babel-plugin-relay": "^9.0.0",
+    "graphql": "^14.6.0",
+    "relay-compiler": "^9.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "relay": "relay-compiler --src ./src --schema ./src/schema.graphql --extensions ts tsx js jsx"
   },
   "eslintConfig": {
     "extends": "react-app"
