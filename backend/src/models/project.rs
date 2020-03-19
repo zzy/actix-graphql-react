@@ -71,7 +71,6 @@ pub struct NewProject<'a> {
     pub website: &'a str,
     pub source_code: &'a str,
     pub published: &'a bool,
-
 }
 
 // The GraphQL input object for creating project

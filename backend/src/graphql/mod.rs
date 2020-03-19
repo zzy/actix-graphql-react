@@ -8,12 +8,12 @@ use actix_web::{web, Error, HttpResponse};
 use crate::data::db::PostgresPool;
 
 pub mod context;
-pub mod query;
-pub mod mutation;
+pub mod queries;
+pub mod mutations;
 
 use context::GraphQLContext;
-use query::QueryRoot;
-use mutation::MutationRoot;
+use queries::QueryRoot;
+use mutations::MutationRoot;
 
 // The root schema that pulls the query and mutation together.
 // Perhaps someday you'll see a Subscription struct here as well.
