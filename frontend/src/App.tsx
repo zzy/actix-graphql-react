@@ -1,6 +1,12 @@
 import React from 'react';
+import {graphql, QueryRenderer} from 'react-relay';
+
 import logo from './logo.svg';
 import './App.css';
+
+import environment from "./environment"
+
+
 
 function App() {
   return (

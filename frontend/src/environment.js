@@ -9,7 +9,7 @@ function fetchQuery(
   operation,
   variables,
 ) {
-  return fetch('/gql', {
+  return fetch('https://api.budshome.com/gql', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
