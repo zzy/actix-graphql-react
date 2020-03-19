@@ -2,7 +2,7 @@ use juniper::FieldResult;
 
 use super::context::GraphQLContext;
 
-use crate::models::{ User, UserInput, Project, ProjectInput };
+use crate::models::{ User, NewUser, Project, NewProject };
 
 pub mod user_mut;
 pub mod project_mut;
@@ -19,8 +19,8 @@ impl MutationRoot {
 
     // user
     #[graphql(name = "createUser")]
-    pub fn create_user(context: &GraphQLContext, user_input: UserInput) -> FieldResult<User> {
-        user_mut::create_user(context, user_input)
+    pub fn create_user(context: &GraphQLContext, new_user: NewUser) -> FieldResult<User> {
+        user_mut::create_user(context, new_user)
     }
 
     #[graphql(name = "markUserAsBanned")]
@@ -35,8 +35,8 @@ impl MutationRoot {
 
     // project
     #[graphql(name = "createProject")]
-    pub fn create_project(context: &GraphQLContext, project_input: ProjectInput) -> FieldResult<Project> {
-        project_mut::create_project(context, project_input)
+    pub fn create_project(context: &GraphQLContext, new_project: NewProject) -> FieldResult<Project> {
+        project_mut::create_project(context, new_project)
     }
 
     #[graphql(name = "markProjectAsPublished")]

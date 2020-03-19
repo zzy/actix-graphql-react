@@ -1,6 +1,3 @@
-#[allow(unused_imports)]
-
-use juniper::GraphQLInputObject;
 use chrono::*;
 
 use crate::schema::users;
@@ -51,21 +48,13 @@ impl User {
     }
 }
 
-// Used to create new user
-#[derive(Insertable)]
+// It is super convenient that Rust allows us to use the same structs
+// for GraphQL input objects as well as Diesel insertable objects.
+#[derive(GraphQLInputObject, Insertable)]
 #[table_name = "users"]
-pub struct NewUser<'a> {
-    pub email: &'a str,
-    pub username: &'a str,
-    pub password: &'a str,
-    pub banned: &'a bool,
-}
-
-// The GraphQL input object for creating user
-#[derive(GraphQLInputObject)]
-pub struct UserInput {
+pub struct NewUser {
     pub email: String,
     pub username: String,
     pub password: String,
-    pub banned: Option<bool>,
+    // pub banned: bool,
 }

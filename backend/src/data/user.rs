@@ -3,7 +3,7 @@ use diesel::prelude::*;
 use juniper::{graphql_value, FieldError, FieldResult};
 
 use crate::schema::users::dsl::*;
-use crate::models::{ User, NewUser, UserInput };
+use crate::models::{ User, NewUser };
 use super::utils::graphql_translate;
 
 // This struct is basically a query manager. All the methods that it
@@ -38,16 +38,9 @@ impl UserDao {
 
     pub fn create_user(
         conn: &PgConnection,
-        user_input: UserInput,
+        new_user: NewUser
     ) -> FieldResult<User> {
         use crate::schema::users;
-
-        let new_user = NewUser {
-            email: &user_input.email,
-            username: &user_input.username,
-            password: &user_input.password,
-            banned: &user_input.banned.unwrap_or(false), // Default value is false
-        };
 
         let res = diesel::insert_into(users::table)
             .values(&new_user)

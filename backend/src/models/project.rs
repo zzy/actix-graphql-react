@@ -1,6 +1,3 @@
-#[allow(unused_imports)]
-
-use juniper::GraphQLInputObject;
 use chrono::*;
 
 use crate::schema::projects;
@@ -62,23 +59,14 @@ impl Project {
     }
 }
 
-// Used to create new project
-#[derive(Insertable)]
+// It is super convenient that Rust allows us to use the same structs
+// for GraphQL input objects as well as Diesel insertable objects.
+#[derive(GraphQLInputObject, Insertable)]
 #[table_name = "projects"]
-pub struct NewProject<'a> {
-    pub user_id: &'a i32,
-    pub subject: &'a str,
-    pub website: &'a str,
-    pub source_code: &'a str,
-    pub published: &'a bool,
-}
-
-// The GraphQL input object for creating project
-#[derive(GraphQLInputObject)]
-pub struct ProjectInput {
+pub struct NewProject {
     pub user_id: i32,
     pub subject: String,
     pub website: String,
     pub source_code: String,
-    pub published: Option<bool>,
+    // pub published: bool,
 }

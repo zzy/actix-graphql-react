@@ -3,7 +3,7 @@ use diesel::prelude::*;
 use juniper::{graphql_value, FieldError, FieldResult};
 
 use crate::schema::projects::dsl::*;
-use crate::models::{ Project, NewProject, ProjectInput };
+use crate::models::{ Project, NewProject };
 use super::utils::graphql_translate;
 
 // This struct is basically a query manager. All the methods that it
@@ -47,17 +47,9 @@ impl ProjectDao {
 
     pub fn create_project(
         conn: &PgConnection,
-        project_input: ProjectInput,
+        new_project: NewProject,
     ) -> FieldResult<Project> {
         use crate::schema::projects;
-
-        let new_project = NewProject {
-            user_id: &project_input.user_id,
-            subject: &project_input.subject,
-            website: &project_input.website,
-            source_code: &project_input.source_code,
-            published: &project_input.published.unwrap_or(false), // Default value is false
-        };
 
         let res = diesel::insert_into(projects::table)
             .values(&new_project)

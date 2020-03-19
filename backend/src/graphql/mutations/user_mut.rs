@@ -2,16 +2,16 @@ use diesel::pg::PgConnection;
 use juniper::FieldResult;
 
 use crate::graphql::context::GraphQLContext;
-use crate::models::{ User, UserInput };
+use crate::models::{ User, NewUser };
 use crate::data::UserDao;
 
 pub fn create_user(
     context: &GraphQLContext, 
-    user_input: UserInput
+    new_user: NewUser
 ) -> FieldResult<User> {
     let conn: &PgConnection = &context.pool.get().unwrap();
 
-    UserDao::create_user(conn, user_input)
+    UserDao::create_user(conn, new_user)
 }
 
 pub fn mark_user_as_banned(
