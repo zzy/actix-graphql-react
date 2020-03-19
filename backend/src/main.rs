@@ -4,7 +4,7 @@ use actix_web::{middleware, App, HttpServer};
 
 // agract_backend is the name defined in the cargo.toml.
 use agract_backend::data::db::pg_pool;
-use agract_backend::graphql::endpoints;
+use agract_backend::gql::endpoints;
 
 #[actix_rt::main]
 async fn main() -> io::Result<()> {
