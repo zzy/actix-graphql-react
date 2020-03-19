@@ -7,12 +7,25 @@ schema {
 scalar DateTimeUtc
 
 type MutationRoot {
-  createUser(userInput: UserInput!): User!
+  createUser(newUser: NewUser!): User!
   markUserAsBanned(userId: Int!): User!
   markUserAsNotBanned(userId: Int!): User!
-  createProject(projectInput: ProjectInput!): Project!
+  createProject(newProject: NewProject!): Project!
   markProjectAsPublished(projectId: Int!): Project!
   markProjectAsNotPublished(projectId: Int!): Project!
+}
+
+input NewProject {
+  userId: Int!
+  subject: String!
+  website: String!
+  sourceCode: String!
+}
+
+input NewUser {
+  email: String!
+  username: String!
+  password: String!
 }
 
 # A project of a user
@@ -25,14 +38,6 @@ type Project {
   created_at: DateTimeUtc!
   updated_at: DateTimeUtc!
   published: Boolean!
-}
-
-input ProjectInput {
-  userId: Int!
-  subject: String!
-  website: String!
-  sourceCode: String!
-  published: Boolean
 }
 
 type QueryRoot {
@@ -55,12 +60,5 @@ type User {
   created_at: DateTimeUtc!
   updated_at: DateTimeUtc!
   banned: Boolean!
-}
-
-input UserInput {
-  email: String!
-  username: String!
-  password: String!
-  banned: Boolean
 }
 
