@@ -10,6 +10,7 @@
     "@types/node": "^12.12.30",
     "@types/react": "^16.9.23",
     "@types/react-dom": "^16.9.5",
+    "@types/react-relay": "^7.0.3",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-relay": "^9.0.0",
@@ -20,7 +21,8 @@
     "relay-config": "^9.0.0",
     "babel-plugin-relay": "^9.0.0",
     "graphql": "^14.6.0",
-    "relay-compiler": "^9.0.0"
+    "relay-compiler": "^9.0.0",
+    "relay-compiler-language-typescript": "^12.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
