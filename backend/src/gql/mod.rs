@@ -3,7 +3,7 @@ use std::sync::Arc;
 use juniper::RootNode;
 use juniper::http::GraphQLRequest;
 use juniper::http::playground::playground_source;
-use actix_web::{web, Error, HttpResponse};
+use actix_web::{ web, Error, HttpResponse };
 
 use crate::data::db::PostgresPool;
 
@@ -29,8 +29,14 @@ pub fn endpoints(config: &mut web::ServiceConfig) {
     let schema = Arc::new(create_schema());
     config
         .data(schema)
-        .route("/gql", web::post().to(graphql))
-        .route("/gql", web::get().to(playground));
+        .service(
+            web::resource("/gql")
+                .route(web::post().to(graphql))
+                .route(web::get().to(playground))
+                // .route(web::head().to(|| HttpResponse::MethodNotAllowed()))
+        );
+        // .route("/gql", web::post().to(graphql))
+        // .route("/gql", web::get().to(playground));
 }
 
 // The GraphQL Playground route.
