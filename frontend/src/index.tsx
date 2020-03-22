@@ -21,7 +21,7 @@ const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
     uri: 'https://api.budshome.com/gql',
     headers: {
       authorization: localStorage.getItem('token'),
-      'client-name': 'Space Explorer [web]',
+      'client-name': 'agract-frontend[web]',
       'client-version': '1.0.0',
     },
   }),
