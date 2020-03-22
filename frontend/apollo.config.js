@@ -1,6 +1,6 @@
 module.exports = {
   client: {
-    name: 'Space Explorer [web]',
+    name: 'agract-frontend[web]',
     service: 'space-explorer',
   },
 };
