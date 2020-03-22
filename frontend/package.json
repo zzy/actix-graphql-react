@@ -1,49 +1,50 @@
 {
-  "name": "agract-frontend",
+  "name": "client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
-    "@types/jest": "^24.9.1",
-    "@types/node": "^12.12.30",
-    "@types/react": "^16.9.23",
-    "@types/react-dom": "^16.9.5",
-    "@types/react-relay": "^7.0.3",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-relay": "^9.0.0",
-    "react-scripts": "^3.4.0",
-    "typescript": "^3.8.3"
-  },
-  "devDependencies": {
-    "relay-config": "^9.0.0",
-    "babel-plugin-relay": "^9.0.0",
-    "graphql": "^14.6.0",
-    "relay-compiler": "^9.0.0",
-    "relay-compiler-language-typescript": "^12.0.0"
+    "@apollo/react-hooks": "^3.0.0",
+    "@reach/router": "^1.2.1",
+    "@types/node": "^12.12.14",
+    "@types/reach__router": "^1.2.6",
+    "@types/react": "^16.9.15",
+    "@types/react-dom": "^16.9.4",
+    "apollo-cache-inmemory": "^1.6.2",
+    "apollo-client": "^2.6.3",
+    "apollo-link-http": "^1.5.15",
+    "emotion": "^9.2.12",
+    "graphql": "^14.4.2",
+    "graphql-tag": "^2.10.1",
+    "polished": "^3.4.1",
+    "react": "^16.9.0-alpha.0",
+    "react-dom": "^16.9.0-alpha.0",
+    "react-emotion": "^9.2.12",
+    "react-scripts": "^3.0.1",
+    "typescript": "^3.7.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=5001 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "relay": "relay-compiler --src ./src --schema ./src/schema.graphql --extensions ts tsx js jsx"
+    "codegen": "apollo client:codegen --target typescript --watch"
   },
   "eslintConfig": {
     "extends": "react-app"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "@apollo/react-testing": "^3.0.0",
+    "@testing-library/jest-dom": "^4.0.0",
+    "@testing-library/react": "^8.0.7",
+    "@types/jest": "^24.0.23",
+    "apollo": "^2.16.3",
+    "artillery": "^1.6.0-26",
+    "npm-watch": "^0.6.0"
   }
 }
