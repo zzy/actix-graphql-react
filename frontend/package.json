@@ -15,7 +15,7 @@
     "emotion": "^9.2.12",
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.3",
-    "polished": "^3.5.0",
+    "polished": "^3.5.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-emotion": "^9.2.12",
