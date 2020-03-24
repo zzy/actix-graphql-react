@@ -28,6 +28,11 @@ impl QueryRoot {
         user_qry::get_user_by_id(context, user_id)
     }
 
+    #[graphql(name = "getUserByEmailOrUsername")]
+    pub fn get_user_by_email_or_username(context: &GraphQLContext, email_or_username: String) -> FieldResult<Option<User>> {
+        user_qry::get_user_by_email_or_username(context, email_or_username)
+    }
+
     #[graphql(name = "bannedUsers")]
     pub fn banned_users(context: &GraphQLContext) -> FieldResult<Vec<User>> {
         user_qry::banned_users(context)

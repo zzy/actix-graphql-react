@@ -36,6 +36,24 @@ impl UserDao {
         }
     }
 
+    pub fn get_user_by_email_or_username(
+        conn: &PgConnection,
+        email_or_username: String,
+    ) -> FieldResult<Option<User>> {
+        match users
+                .filter(email.eq(&email_or_username))
+                .or_filter(username.eq(&email_or_username))
+                .first::<User>(conn) {
+                    Ok(user) => Ok(Some(user)),
+                    Err(e) => match e {
+                        // Without this translation, GraphQL will return an error rather
+                        // than the more semantically sound JSON null if no User is found.
+                        diesel::result::Error::NotFound => FieldResult::Ok(None),
+                        _ => FieldResult::Err(FieldError::from(e)),
+                    },
+                }
+    }
+
     pub fn create_user(
         conn: &PgConnection,
         new_user: NewUser

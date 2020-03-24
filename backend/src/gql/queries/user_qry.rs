@@ -24,6 +24,15 @@ pub fn get_user_by_id(
     UserDao::get_user_by_id(conn, user_id)
 }
 
+pub fn get_user_by_email_or_username(
+    context: &GraphQLContext,
+    email_or_username: String,
+) -> FieldResult<Option<User>> {
+    let conn: &PgConnection = &context.pool.get().unwrap();
+
+    UserDao::get_user_by_email_or_username(conn, email_or_username)
+}
+
 pub fn banned_users(
     context: &GraphQLContext
 ) -> FieldResult<Vec<User>> {
