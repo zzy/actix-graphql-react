@@ -54,7 +54,7 @@ diesel = { version = "<version>", features = ["postgres|mysql"] }
 
 Then, run at the bash:
 
-``` Toml
+```
 cargo install diesel_cli --no-default-features --features [postgres|mysql]
 echo DATABASE_URL=[postgres|mysql]://username:password@localhost/actix_graphql > .env
 echo GRAPHQL_PORT=5000 >> .env
