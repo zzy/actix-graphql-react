@@ -49,14 +49,14 @@ Configure the database backend in Cargo.toml:
 
 ``` Toml
 [dependencies]
-diesel = { version = "<version>", features = ["postgres|mysql"] }
+diesel = { version = "<version>", features = [<"postgres|mysql">] }
 ```
 
 Then, run at the bash:
 
 ``` Bash
-cargo install diesel_cli --no-default-features --features [postgres|mysql]
-echo DATABASE_URL=[postgres|mysql]://username:password@localhost/actix_graphql > .env
+cargo install diesel_cli --no-default-features --features <postgres|mysql>
+echo DATABASE_URL=<postgres|mysql>://username:password@localhost/actix_graphql > .env
 echo GRAPHQL_PORT=5000 >> .env
 ```
 
@@ -87,8 +87,10 @@ GraphiQL: connect to http://localhost:5000/gql with browser.
 git clone https://github.com/zzy/actix-graphql-react.git
 cd actix-graphql-react/frontend/
 # npm or yarn
-[npm|yarn] install
-[npm|yarn] start
+<npm|yarn> install
+<npm|yarn> start
 ```
 
 Then go to http://localhost:5001
+
+
