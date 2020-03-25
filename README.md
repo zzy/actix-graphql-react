@@ -49,7 +49,7 @@ Configure the database backend in Cargo.toml:
 
 ``` Toml
 [dependencies]
-diesel = { version = "<version>", features = [<"postgres|mysql">] }
+diesel = { version = "<version>", features = ["<postgres|mysql>"] }
 ```
 
 Then, run at the bash:
