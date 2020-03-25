@@ -1,6 +1,6 @@
 # actix-graphql-react
 
-**NOT** complete - Clean boilerplate for GraphQL app built with Rust & TypeScript.
+**NOT** complete - Clean boilerplate for GraphQL server & react-app built with Rust & TypeScript.
 
 * Backend Demo (WIP): https://api.budshome.com/gql
 * Frontend Demo (WIP): https://cms.budshome.com
@@ -86,20 +86,9 @@ GraphiQL: connect to http://localhost:5000/gql with browser.
 ``` Bash
 git clone https://github.com/zzy/actix-graphql-react.git
 cd actix-graphql-react/frontend/
-```
-
-#### yarn
-
-``` Bash
-yarn install # yarn upgrade; yarn install
-yarn start
-```
-
-#### npm
-
-``` Bash
-npm install # npm up; npm install
-npm start
+# npm or yarn
+[npm|yarn] install
+[npm|yarn] start
 ```
 
 Then go to http://localhost:5001
