@@ -24,7 +24,7 @@
 - [actix-web](https://crates.io/crates/actix-web) - Web server
 - [juniper](https://crates.io/crates/juniper) - GraphQL server，[中文文档](https://juniper.budshome.com)
 - [diesel](https://crates.io/crates/diesel) - ORM
-- [PostgreSQL](https://postgresql.org) - Database
+- [PostgreSQL](https://postgresql.org) / [MySql](https://dev.mysql.com) - Database
 - [jsonwebtoken](https://crates.io/crates/jsonwebtoken) - JSON Web Token
 - [GraphQL Playground](https://github.com/prisma-labs/graphql-playground) - GraphQL UI
 
@@ -45,9 +45,18 @@ cd actix-graphql-react/backend/
 
 #### Put the `DATABASE_URL` & `port` in a `.env` file.
 
-``` Bash
-cargo install diesel_cli --no-default-features --features postgres
-echo DATABASE_URL=postgres://username:password@localhost/actix_graphql > .env
+Configure the database backend in Cargo.toml:
+
+``` Toml
+[dependencies]
+diesel = { version = "<version>", features = ["postgres|mysql"] }
+```
+
+Then, run at the bash:
+
+``` Toml
+cargo install diesel_cli --no-default-features --features [postgres|mysql]
+echo DATABASE_URL=[postgres|mysql]://username:password@localhost/actix_graphql > .env
 echo GRAPHQL_PORT=5000 >> .env
 ```
 
