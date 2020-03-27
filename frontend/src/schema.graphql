@@ -1,0 +1,65 @@
+schema {
+  query: QueryRoot
+  mutation: MutationRoot
+}
+
+# DateTime
+scalar DateTimeUtc
+
+type MutationRoot {
+  createUser(newUser: NewUser!): User!
+  markUserAsBanned(userId: Int!): User!
+  markUserAsNotBanned(userId: Int!): User!
+  createProject(newProject: NewProject!): Project!
+  markProjectAsPublished(projectId: Int!): Project!
+  markProjectAsNotPublished(projectId: Int!): Project!
+}
+
+input NewProject {
+  userId: Int!
+  subject: String!
+  website: String!
+  sourceCode: String!
+}
+
+input NewUser {
+  email: String!
+  username: String!
+  password: String!
+}
+
+# A project of a user
+type Project {
+  id: Int!
+  user_id: Int!
+  subject: String!
+  website: String!
+  source_code: String!
+  created_at: DateTimeUtc!
+  updated_at: DateTimeUtc!
+  published: Boolean!
+}
+
+type QueryRoot {
+  allUsers: [User!]!
+  getUserById(userId: Int!): User
+  getUserByEmailOrUsername(emailOrUsername: String!): User
+  bannedUsers: [User!]!
+  notBannedUsers: [User!]!
+  allProjects: [Project!]!
+  getProjectsByUser(projectUserId: Int!): [Project!]!
+  getProjectById(projectId: Int!): Project
+  publishedProjects: [Project!]!
+  notPublishedProjects: [Project!]!
+}
+
+# Users in the platform
+type User {
+  id: Int!
+  email: String!
+  username: String!
+  created_at: DateTimeUtc!
+  updated_at: DateTimeUtc!
+  banned: Boolean!
+}
+
