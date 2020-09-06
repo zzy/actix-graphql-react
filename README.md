@@ -20,7 +20,7 @@
 
 ### Backend
 
-- [Rust](https://www.rust-lang.org/zh-CN)
+- [Rust](https://www.rust-lang.org/zh-CN)，[Rust 实例手册](https://books.budshome.com/rust-cookbook)，[Rust 参考手册](https://books.budshome.com/rust-reference)，[通过例子学 Rust](https://books.budshome.com/rust-by-example)，[Rust 程序设计语言（2018）](https://books.budshome.com/rust-lang)
 - [actix-web](https://crates.io/crates/actix-web) - Web server
 - [juniper](https://crates.io/crates/juniper) - GraphQL server，[中文文档](https://juniper.budshome.com)
 - [diesel](https://crates.io/crates/diesel) - ORM
