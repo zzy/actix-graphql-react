@@ -18,4 +18,4 @@ juniper = "=0.14.2"
 diesel = { version = "=1.4.3", features = ["postgres", "r2d2", "chrono"] }
 r2d2 = "=0.8.8"
 chrono = "=0.4.11"
-jsonwebtoken = "=7.1.0"
+jsonwebtoken = "=10.3.0"
