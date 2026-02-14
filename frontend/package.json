@@ -19,7 +19,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-emotion": "^9.2.12",
-    "react-scripts": "^3.4.1",
+    "react-scripts": "^5.0.1",
     "typescript": "^3.8.3"
   },
   "scripts": {
@@ -44,7 +44,7 @@
     "@testing-library/react": "^8.0.9",
     "@types/jest": "^24.9.1",
     "apollo": "^2.25.0",
-    "artillery": "^1.6.0",
+    "artillery": "^1.7.9",
     "npm-watch": "^0.6.0"
   }
 }
